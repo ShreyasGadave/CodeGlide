@@ -15,6 +15,7 @@ import { authenticateToken } from "./Middlewares/Auth.js";
 import { generateAIResponse } from "./Controller/Aiagent.js";
 import { FetchInternships } from "./Controller/InternshipController.js";
 import { checkAndSendEmails } from "./Controller/Mail.js";
+import CreateRoadmap from "./Routes/roadmapRoute.js"
 dotenv.config();
 
 const PORT = process.env.PORT || 8000;
@@ -44,6 +45,7 @@ app.use("/api/aiinterview", AIInterview);
 app.use("/api/resume", AnalyzeResume);
 
 app.get("/api/jobs", FetchInternships);
+app.use("/api/create", CreateRoadmap);
 
 // checkAndSendEmails()
 app.listen(PORT, () => {

@@ -4,7 +4,6 @@ import { Provider } from 'react-redux';
 import { store } from './App/Store';
 import "react-toastify/dist/ReactToastify.css";
 
-
 import LandingPage from './Pages/LandingPage';
 import QuestionTracker from './Pages/QuestionTracker';
 import EventTracker from './Pages/EventTracker';
@@ -33,6 +32,7 @@ import CommunityChat from './Components/chat/ChatCommunity';
 import ScorePage from './Components/AiInterview/ScorePage';
 import ATSResume from './Components/chat/ATSResume';
 import ChatGemini from './Components/Chatwithgemini/ChatGemini';
+import RoadmapForm from './Components/Home/Roadmap';
 
 
 const router = createBrowserRouter(
@@ -46,6 +46,7 @@ const router = createBrowserRouter(
             <Route path="ainterview" element={<InterviewDashBord />} />
             <Route path="AIJobForm" element={<JobForm />} />
             <Route path="community" element={<CommunityChat />} />
+            <Route path='roadmap' element={<RoadmapForm/>} />
             <Route path="resume" element={<ATSResume />} />
             <Route path="AI-Interivew/:interviewId" element={<AiInterview />} />
             <Route path="AI-Interivew/:interviewId/start" element={<AIQuestionsPage />} />
