@@ -60,6 +60,14 @@ const HeroSection = () => {
         delay={1.5}
         blur
       />
+        <FloatingElement
+        top="60%"
+        left="40%"
+        size="60px"
+        color="#FFF045"
+        delay={1.5}
+        blur
+      />
       <FloatingElement
         top="70%"
         left="20%"
@@ -135,7 +143,7 @@ const HeroSection = () => {
         </motion.p>
       </motion.div> */}
       <h2 className="text-6xl font-semibold text-gray-600">Track, analyze & share</h2>
-      <h3 className="text-2xl font-semibold text-gray-400 text-center max-w-lg mt-2">
+      <h3 className="text-2xl font-medium text-gray-400 text-center max-w-lg mt-2">
         Codo
         <span class="bg-gradient-to-r from-[#FFF045] via-[#00CDD7] to-[#2086D7] bg-clip-text text-transparent">
           Glide 

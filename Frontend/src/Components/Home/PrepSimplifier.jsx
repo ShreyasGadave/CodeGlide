@@ -26,7 +26,7 @@ const PrepSimplifier = () => {
     ];
 
     return (
-        <div className="max-w-6xl mx-auto px-6 py-16">
+        <div className="max-w-6xl mx-auto px-6 pt-5 pb-10 ">
             {/* Header Section */}
             <div className="text-center md:text-left">
                 <h3 className="text-4xl md:text-5xl font-bold text-gray-900 dark:text-white leading-tight">
