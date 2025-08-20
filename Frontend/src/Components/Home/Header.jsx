@@ -61,7 +61,7 @@ const Header = () => {
                 `px-2 py-2 text-sm font-medium  transition border-b-2 ${
                   isActive
                     ? "border-green-500 text-gray-900" // Active: red text + red underline
-                    : "border-transparent text-gray-500 hover:text-gray-800 hover:border-gray-800" // Inactive: no border
+                    : "border-transparent text-gray-600 hover:text-gray-800 hover:border-gray-800" // Inactive: no border
                 }`
               }
             >
