@@ -6,9 +6,6 @@ import Resume from "../Model/Resume.js";
 
 dotenv.config();
 
-// ⛔ Disable worker for Node.js (important!)
-pdfjsLib.GlobalWorkerOptions.workerSrc = null;
-
 // 📄 Extract Text from PDF from a Buffer
 const extractTextFromPDF = async (buffer) => {
   const loadingTask = pdfjsLib.getDocument({ data: buffer });
@@ -25,8 +22,8 @@ const extractTextFromPDF = async (buffer) => {
   return fullText.trim();
 };
 
-// 🤖 Analyze Resume Based on Job Category
-const analyzeResumeAgainstCategory = async (resumeText, category ,userId) => {
+// 🤖 Analyze Resume Against Job Category
+const analyzeResumeAgainstCategory = async (resumeText, category, userId) => {
   const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
   const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
 
@@ -47,11 +44,15 @@ Only return the valid JSON. No markdown, no extra text.
 Resume Text:
 ${resumeText}
 `;
-  handleStoreResumedata(userId, resumeText);
+
+  // Store structured resume data in DB
+  await handleStoreResumedata(userId, resumeText);
+
   try {
     const result = await model.generateContent(prompt);
     let responseText = result.response.text();
 
+    // Clean JSON if wrapped in markdown
     if (responseText.startsWith("```json")) {
       responseText = responseText
         .replace(/^```json\s*/, "")
@@ -71,64 +72,64 @@ ${resumeText}
     throw new Error("Failed to analyze resume for job category");
   }
 };
-// 🤖 Analyze Resume Based on Job Category
+
+// 📌 Store Parsed Resume Data into MongoDB
 const handleStoreResumedata = async (userId, resumeText) => {
-    const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
-    const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
-  
-    const prompt = `
-  You are a resume parser. Analyze the following resume text and return all available information in structured JSON format.
-  
-  Include standard sections:
-  - name
-  - email
-  - phone
-  - location
-  - summary
-  - skills
-  - experience (jobTitle, company, startDate, endDate, description)
-  - education (degree, institution, startDate, endDate)
-  - certifications
-  - projects
-  
-  Also include **any other sections** found in the resume (e.g., languages, awards, volunteer work, publications, interests, etc.).
-  
-  The JSON should be clean, with section names as keys and values in appropriate formats (strings, arrays, or objects). Return **only** the JSON — no markdown or extra text.
-  
-  Resume Text:
-  ${resumeText}
-  `;
-  
-    try {
-      const result = await model.generateContent(prompt);
-      let responseText = result.response.text();
-  
-      if (responseText.startsWith("```json")) {
-        responseText = responseText
-          .replace(/^```json\s*/, "")
-          .replace(/```$/, "");
-      }
-  
-      let parsed;
-      try {
-        parsed = JSON.parse(responseText);
-      } catch {
-        parsed = JSON.parse(jsonrepair(responseText));
-      }
-  
-      const savedResume = await Resume.findOneAndUpdate(
-        { userId },
-        { data: parsed, createdAt: new Date() },
-        { new: true, upsert: true }
-      );
-  
-      return savedResume; // ✅ return the saved or updated resume
-    } catch (error) {
-      console.error("❌ Resume parsing error:", error.message);
-      throw new Error("Failed to extract structured resume data");
+  const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
+  const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
+
+  const prompt = `
+You are a resume parser. Analyze the following resume text and return all available information in structured JSON format.
+
+Include standard sections:
+- name
+- email
+- phone
+- location
+- summary
+- skills
+- experience (jobTitle, company, startDate, endDate, description)
+- education (degree, institution, startDate, endDate)
+- certifications
+- projects
+
+Also include **any other sections** found in the resume (e.g., languages, awards, volunteer work, publications, interests, etc.).
+
+The JSON should be clean, with section names as keys and values in appropriate formats (strings, arrays, or objects). Return **only** the JSON — no markdown or extra text.
+
+Resume Text:
+${resumeText}
+`;
+
+  try {
+    const result = await model.generateContent(prompt);
+    let responseText = result.response.text();
+
+    if (responseText.startsWith("```json")) {
+      responseText = responseText
+        .replace(/^```json\s*/, "")
+        .replace(/```$/, "");
     }
-  };
-  
+
+    let parsed;
+    try {
+      parsed = JSON.parse(responseText);
+    } catch {
+      parsed = JSON.parse(jsonrepair(responseText));
+    }
+
+    const savedResume = await Resume.findOneAndUpdate(
+      { userId },
+      { data: parsed, createdAt: new Date() },
+      { new: true, upsert: true }
+    );
+
+    return savedResume;
+  } catch (error) {
+    console.error("❌ Resume parsing error:", error.message);
+    throw new Error("Failed to extract structured resume data");
+  }
+};
 
 // 📤 API Endpoint
 const handleanalyzepdf = async (req, res) => {
@@ -141,9 +142,10 @@ const handleanalyzepdf = async (req, res) => {
     if (!category) {
       return res.status(400).json({ error: "Job category is required" });
     }
+
     const userId = req.user.id;
     const resumeText = await extractTextFromPDF(req.file.buffer);
-    const evaluation = await analyzeResumeAgainstCategory(resumeText, category ,userId);
+    const evaluation = await analyzeResumeAgainstCategory(resumeText, category, userId);
 
     res.json(evaluation);
   } catch (error) {
