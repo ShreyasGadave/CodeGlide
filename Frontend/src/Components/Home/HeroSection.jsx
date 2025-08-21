@@ -2,9 +2,14 @@ import { useRef } from "react";
 import { motion } from "framer-motion";
 import { ReactTyped } from "react-typed";
 import curveImg from "../assets/curve.png";
+import SplitText from "@/ReactBits/SplitText/SplitText";
+
 
 // 🎈 Custom Floating Elements
 const FloatingElement = ({ top, left, size, color, blur, delay, rotate }) => (
+  
+
+
   <motion.div
     className={`absolute rounded-full ${blur ? "backdrop-blur-md" : ""}`}
     style={{
@@ -142,7 +147,7 @@ const HeroSection = () => {
           </span>
         </motion.p>
       </motion.div> */}
-      <h2 className="text-6xl font-semibold text-gray-600">Track, analyze & share</h2>
+   <SplitText/>
       <h3 className="text-2xl font-medium text-gray-400 text-center max-w-lg mt-2">
         Codo
         <span class="bg-gradient-to-r from-[#FFF045] via-[#00CDD7] to-[#2086D7] bg-clip-text text-transparent">

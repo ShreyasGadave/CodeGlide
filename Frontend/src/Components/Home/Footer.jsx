@@ -1,21 +1,18 @@
 import React from 'react';
+import Logo from "../../assets/CODEGLIDE.svg";
 
 const Footer = () => {
     return (
         <footer className="bg-white border-t py-12">
             <div className="container mx-auto px-6">
-                <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-4">
+                <div className="flex flex-col  sm:flex-row gap-2 justify-between">
                     {/* Logo & Description */}
                     <div>
                         <div className="flex items-center gap-2 mb-4">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="h-6 w-6 text-primary">
-                                <path d="m18 16 4-4-4-4"></path>
-                                <path d="m6 8-4 4 4 4"></path>
-                                <path d="m14.5 4-5 16"></path>
-                            </svg>
-                            <span className="text-xl font-bold text-gray-900">CodeMinder</span>
+                           <img src={Logo} alt="" />
+                            <span className="text-xl font-semibold text-gray-600">CodeGlide</span>
                         </div>
-                        <p className="text-sm text-gray-600 mb-4">
+                        <p className="text-sm text-gray-500 mb-4 max-w-md">
                             Track, analyze, and share your coding journey with the most comprehensive developer platform.
                         </p>
                         {/* Social Links */}
@@ -34,41 +31,48 @@ const Footer = () => {
                     </div>
 
                     {/* Footer Links */}
+                    
                     <div>
-                        <h3 className="font-medium mb-4 text-gray-900">Product</h3>
+                        <h3 className="font-medium mb-4 text-gray-600">Product</h3>
                         <ul className="space-y-2">
-                            <li><a className="text-sm text-gray-600 hover:text-primary" href="#">Features</a></li>
-                            <li><a className="text-sm text-gray-600 hover:text-primary" href="#">Pricing</a></li>
-                            <li><a className="text-sm text-gray-600 hover:text-primary" href="#">Integrations</a></li>
+                            <li><a className="text-sm text-gray-500 hover:text-primary" href="#">Features</a></li>
+                            <li><a className="text-sm text-gray-500 hover:text-primary" href="#">Pricing</a></li>
+                            <li><a className="text-sm text-gray-500 hover:text-primary" href="#">Integrations</a></li>
                         </ul>
                     </div>
 
                     <div>
-                        <h3 className="font-medium mb-4 text-gray-900">Company</h3>
+                        <h3 className="font-medium mb-4 text-gray-600">Company</h3>
                         <ul className="space-y-2">
-                            <li><a className="text-sm text-gray-600 hover:text-primary" href="#">About</a></li>
-                            <li><a className="text-sm text-gray-600 hover:text-primary" href="#">Careers</a></li>
-                            <li><a className="text-sm text-gray-600 hover:text-primary" href="#">Contact</a></li>
+                            <li><a className="text-sm text-gray-500 hover:text-primary" href="#">About</a></li>
+                            <li><a className="text-sm text-gray-500 hover:text-primary" href="#">Careers</a></li>
+                            <li><a className="text-sm text-gray-500 hover:text-primary" href="#">Contact</a></li>
                         </ul>
                     </div>
 
                     <div>
-                        <h3 className="font-medium mb-4 text-gray-900">Legal</h3>
+                        <h3 className="font-medium mb-4 text-gray-600">Legal</h3>
                         <ul className="space-y-2">
-                            <li><a className="text-sm text-gray-600 hover:text-primary" href="#">Terms</a></li>
-                            <li><a className="text-sm text-gray-600 hover:text-primary" href="#">Privacy</a></li>
-                            <li><a className="text-sm text-gray-600 hover:text-primary" href="#">Cookies</a></li>
+                            <li><a className="text-sm text-gray-500 hover:text-primary" href="#">Terms</a></li>
+                            <li><a className="text-sm text-gray-500 hover:text-primary" href="#">Privacy</a></li>
+                            <li><a className="text-sm text-gray-500 hover:text-primary" href="#">Cookies</a></li>
                         </ul>
                     </div>
+
                 </div>
 
                 {/* Bottom Bar */}
                 <div className="border-t mt-12 pt-8 flex flex-col md:flex-row justify-between items-center text-gray-600 text-sm">
-                    <p>© 2025 CodeMinder. All rights reserved.</p>
+                    <p>© 2025 CodeGlide. All rights reserved.</p>
                     <div className="flex gap-4 mt-4 md:mt-0">
                         <a className="hover:text-primary" href="#">Terms of Service</a>
                         <a className="hover:text-primary" href="#">Privacy Policy</a>
-                        <a className="hover:text-primary" href="#">Cookie Policy</a>
+                        <a className="hover:text-primary" href="#">Cookie Policy</a> 
+                         <div className="flex items-center space-x-2">
+                <div className="w-2 h-2 bg-success rounded-full animate-pulse"></div>
+                <span>All systems operational</span>
+              </div>
+              
                     </div>
                 </div>
             </div>
