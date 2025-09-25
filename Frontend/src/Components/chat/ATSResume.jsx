@@ -72,7 +72,7 @@ function ATSResume() {
   };
 
   return (
-    <div className="min-h-screen mt-20 bg-gradient-to-br from-gray-50 to-gray-100 py-12 px-4 sm:px-6 lg:px-8">
+    <div className="min-h-screen My Workspace py-12 px-4 sm:px-6 lg:px-8">
       <div className="max-w-4xl mx-auto">
         {/* Header */}
         {/* <div className="text-center mb-10">
@@ -85,7 +85,7 @@ function ATSResume() {
         </div> */}
 
         {/* Upload Card */}
-        <div className="bg-white rounded-xl shadow-lg overflow-hidden mb-8">
+        <div className="bg-gray-100 rounded-lg shadow-lg overflow-hidden mb-8">
           <div className="p-6 sm:p-8">
             <form onSubmit={handleSubmit} className="space-y-6">
               {/* File Upload */}
@@ -110,7 +110,7 @@ function ATSResume() {
                         <div className="flex text-sm text-gray-600">
                           <label
                             htmlFor="file-upload"
-                            className="relative cursor-pointer bg-white rounded-md font-medium text-blue-600 hover:text-blue-500 focus-within:outline-none"
+                            className="relative cursor-pointer   rounded-md font-medium text-blue-600 hover:text-blue-500 focus-within:outline-none"
                           >
                             <span>Upload a file</span>
                             <input

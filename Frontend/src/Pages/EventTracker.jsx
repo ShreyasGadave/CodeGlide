@@ -3,7 +3,7 @@ import React from 'react'
 
 function EventTracker() {
     return (
-        <div className="flex flex-row mt-20 ">
+        <div className="flex flex-row mt-10 ">
             
             <div className='w-full'>
                 <Calendar />

@@ -65,7 +65,7 @@ function ChatGemini() {
       {/* Chat Container */}
       <div
         ref={chatContainerRef}
-        className="flex-1 overflow-y-auto p-6 space-y-4 bg-gradient-to-b from-white/50 to-transparent"
+        className="flex-1 overflow-y-auto  p-6 space-y-4 bg-gradient-to-b from-white/50 to-transparent"
       >
         {messages.length === 0 && (
           <motion.div
@@ -78,15 +78,15 @@ function ChatGemini() {
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z" />
               </svg>
             </div>
-            <h2 className="text-2xl font-bold text-gray-700 mb-2">How can I help you today?</h2>
-            <p className="max-w-md text-gray-600">Ask me anything about technology, business, or general knowledge.</p>
-            <div className="mt-6 grid grid-cols-2 gap-3 w-full max-w-md">
-              {["Suggest a business idea", "Explain AI", "Best marketing strategies", "Tech trends 2024"].map((suggestion) => (
+            <h2 className="text-2xl font-bold text-gray-700 mb-2">Hi there! I’m your AI companion</h2>
+            <p className="max-w-xl text-gray-600">Need quick answers or creative ideas? I’m here to guide you through tech, business, and more.</p>
+            <div className="mt-6 grid grid-cols-2 gap-2 w-full max-w-lg">
+              {["Give me a startup idea", "Explain AI in simple terms", "Latest tech trends", "Productivity tips"].map((suggestion) => (
                 <motion.button
                   key={suggestion}
                   whileHover={{ scale: 1.03 }}
                   whileTap={{ scale: 0.98 }}
-                  className="bg-white border border-gray-200 rounded-lg px-4 py-2 text-sm text-gray-700 shadow-sm hover:bg-gray-50 transition-all"
+                  className="bg-white border border-gray-200 rounded-full px-4 py-2 text-sm text-gray-700 shadow-sm hover:bg-gray-50 transition-all"
                   onClick={() => setQuestion(suggestion)}
                 >
                   {suggestion}

@@ -65,14 +65,14 @@ const NavLinks = ({ closeMenu }) => {
     ];
 
     return (
-        <ul className="flex flex-col gap-2 w-full p-3">
+        <ul className="flex flex-col gap-2 w-full py-10 px-4">
             {links.map(({ to, label, icon }) => (
                 <Link key={to} to={to} className="w-full" onClick={closeMenu}>
                     <Button
                         className={`w-full flex items-center gap-3 justify-start px-4 py-3 rounded-lg transition-all
                             text-gray-700 bg-white border border-gray-300
                             hover:bg-gray-100 hover:shadow-md 
-                            ${location.pathname === to ? "bg-orange-100 text-orange-600 font-semibold" : ""}`}
+                            ${location.pathname === to ? "bg-blue-100 text- font-semibold" : ""}`}
                     >
                         {icon} <span>{label}</span>
                     </Button>

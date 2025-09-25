@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import  { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Loader2, AlertTriangle, ChevronLeft, ChevronRight, ExternalLink, Clock, Calendar as CalendarIcon } from 'lucide-react';
 
@@ -56,8 +56,8 @@ const formatDuration = (start, end) => {
 // CalendarHeader component
 const CalendarHeader = ({ currentMonth, prevMonth, nextMonth }) => {
     return (
-        <div className="flex items-center justify-between mb-6 px-2">
-            <h2 className="text-2xl font-bold text-gray-800">{formatMonthYear(currentMonth)}</h2>
+        <div className="flex items-center justify-between mb-6">
+            <h2 className="text-2xl font-bold text-gray-500">{formatMonthYear(currentMonth)}</h2>
             <div className="flex items-center space-x-2">
                 <Button variant="outline" size="icon" onClick={prevMonth} className="border-gray-300 hover:bg-gray-100">
                     <ChevronLeft className="h-5 w-5 text-gray-700" />
@@ -298,14 +298,16 @@ export default function Calendar() {
     const emptyCells = Array(firstDayOfMonth).fill(null);
 
     return (
-        <div className="calendar-container bg-white rounded-xl shadow-md p-6 max-w-6xl mx-auto">
+        <div className="calendar-container pb-10 bg-white rounded-xl max-w-6xl mx-auto">
+            <h2 className='font-bold text-3xl text-gray-600'>Competitive Programming Contest Calendar</h2>
+            <p className='text-gray-500 text-base py-1'>Stay updated with upcoming contests across platforms - filter by site, search by name, and never miss a challenge.</p>
             <CalendarHeader currentMonth={currentMonth} prevMonth={prevMonth} nextMonth={nextMonth} />
 
             <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-6 px-2">
-                <div className="flex items-center gap-2">
-                    <label className="text-sm text-gray-600 font-medium">Filter by platform:</label>
+                <div className="flex items-center gap-2 shadow border border-gray-300 px-4 py-2 rounded-full">
+                    <label className="text-sm text-gray-600 font-medium">Filter by Platform:</label>
                     <select
-                        className="border border-gray-300 rounded px-2 py-1 text-sm"
+                        className=" rounded text-sm  focus:outline-none" 
                         value={platformFilter}
                         onChange={(e) => setPlatformFilter(e.target.value)}
                     >
@@ -323,7 +325,7 @@ export default function Calendar() {
                     placeholder="Search contest..."
                     value={searchQuery}
                     onChange={(e) => setSearchQuery(e.target.value)}
-                    className="border border-gray-300 rounded px-3 py-1 text-sm w-full sm:w-64"
+                    className="border shadow fo border-gray-300 rounded-full px-4 py-2 text-sm w-full sm:w-64"
                 />
             </div>
 

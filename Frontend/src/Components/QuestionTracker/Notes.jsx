@@ -116,7 +116,7 @@ export default function Notes() {
     };
 
     return (
-        <div className="w-full p-4 border shadow-sm lg:mb-8 overflow-auto">
+        <div className="w-full md:py-10 md:px-5 border shadow-sm lg:mb-8 overflow-auto">
             <ToastContainer />
             <section className="flex flex-col gap-4">
                 <div className="flex justify-between items-center gap-4">

@@ -26,7 +26,7 @@ function CommunityChat() {
 
   return (
     <>
-      <div className="mt-20"></div>
+      <div className="mt-10"></div>
       <div className="flex h-screen bg-background text-secondary mt-2">
         <Sidebar setActiveGroup={setActiveGroup} />
         <div className="flex flex-col flex-1">

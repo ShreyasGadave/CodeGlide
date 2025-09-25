@@ -26,7 +26,7 @@ const ProfileTracker = () => {
     };
 
     return (
-        <div className="grid grid-cols-1 md:grid-cols-4 pt-20 bg-gray-100 dark:bg-gray-900 gap-4 min-h-screen p-4">
+        <div className="grid grid-cols-1 md:grid-cols-4 pt-5 bg-gray-50 dark:bg-gray-900 gap-4 min-h-screen p-4">
             {/* Sidebar */}
             <div className="flex flex-col gap-6 p-6 bg-white dark:bg-gray-800 rounded-lg shadow-md md:rounded-r-lg">
                 {/* Profile Card */}

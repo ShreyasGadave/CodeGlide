@@ -3,7 +3,7 @@ import WorkspaceTable from "./WorkspaceTable";
 
 const Workspace = () => {
     return (
-        <section className="w-full md:mb-10 md:p-4">
+        <section className="w-full md:mb-10 md:py-10 md:pl-5">
             <div className="flex flex-col h-full text-black">
                 {/* Title Section */}
                 <div className="flex flex-col">

@@ -24,7 +24,7 @@ const Explore = () => {
     }, []); // Dependency array ensures it runs only once
 
     return (
-        <div className="flex flex-col m-4 w-full h-full gap-8 no-scrollbar relative">
+        <div className="flex flex-col w-full h-full md:py-10 md:pl-5 gap-8 no-scrollbar relative">
             <div className="flex flex-col">
                 <h3 className="text-2xl font-semibold text-gray-900 dark:text-darkText-300">
                     Track Coding Sheets in One Place
