@@ -38,7 +38,7 @@ export default function JobForm() {
     };
 
     return (
-        <div className="min-h-screen mt-20 bg-gradient-to-br from-gray-50 to-gray-100">
+        <div className="min-h-screen py-10 bg-gradient-to-br from-gray-50 to-gray-100">
            
                 
 

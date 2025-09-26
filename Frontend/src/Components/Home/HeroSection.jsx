@@ -1,7 +1,7 @@
 import { useRef } from "react";
 import { motion } from "framer-motion";
 import { ReactTyped } from "react-typed";
-import curveImg from "../assets/curve.png";
+import Icon from "../Icon/AppIcon";
 import SplitText from "@/ReactBits/SplitText/SplitText";
 
 
@@ -147,6 +147,10 @@ const HeroSection = () => {
           </span>
         </motion.p>
       </motion.div> */}
+          <div className="inline-flex mb-10 items-center space-x-2 text-indigo-500 px-4 py-2 rounded-full text-sm font-medium ">
+            <Icon name="Sparkles" size={16} />
+            <span>Join 50,000+ developers on their coding journey</span>
+          </div>
    <SplitText/>
       <h3 className="text-2xl font-medium text-gray-400 text-center max-w-lg mt-2">
         Codo
@@ -167,7 +171,7 @@ const HeroSection = () => {
           whileTap={{ scale: 0.9 }}
           transition={{ duration: 0.3 }}
           href="/question-tracker"
-          className="px-8 py-4 text-xl font-medium text-gray-500 border border-gray-300 rounded-lg  hover:text-gray-600 transition ease-out shadow-lg bg-transparent backdrop-blur-lg"
+          className="px-8 py-2 text-xl font-medium text-gray-500 border border-gray-300 rounded-lg  hover:text-gray-600 transition ease-out shadow-lg bg-transparent backdrop-blur-lg"
         >
           Question Tracker
         </motion.a>
@@ -177,11 +181,29 @@ const HeroSection = () => {
           whileTap={{ scale: 0.9 }}
           transition={{ duration: 0.3 }}
           href="/profile"
-          className="px-8 py-4 text-xl font-medium text-gray-500 bg-gradient-to-r from-[#FFF045]/50 via-[#00CDD7]/50 to-[#2086D7]/50 rounded-lg flex items-center gap-2 transition shadow-lg"
+          className="px-8 py-2  text-xl font-medium text-gray-500 bg-gradient-to-r from-[#FFF045]/50 via-[#00CDD7]/50 to-[#2086D7]/50 rounded-lg flex items-center gap-2 transition shadow-lg"
         >
           Profile Tracker
         </motion.a>
+        
       </motion.div>
+        <div className="flex mt-10 flex-col sm:flex-row items-center justify-center gap-8 text-sm text-muted-foreground">
+            <div className="flex items-center space-x-2">
+              <Icon name="Users" size={16} />
+              <span>50+ Active Developers</span>
+            </div>
+            <div className="flex items-center space-x-2">
+              <Icon name="TrendingUp" size={16} />
+              <span>85% Career Advancement Rate</span>
+            </div>
+            <div className="flex items-center space-x-2">
+              <Icon name="Award" size={16} />
+              <span>Industry Recognized</span>
+            </div>
+          </div>
+       
+     
+
     </section>
   );
 };

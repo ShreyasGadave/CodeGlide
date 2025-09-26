@@ -67,7 +67,7 @@ const FeatureHighlights = () => {
                 </div>
                 <div className="flex items-center gap-2">
                   <Icon name="Users" size={16} className="text-gray-700" />
-                  <span>Trusted by 10,000+ Job Seekers</span>
+                  <span>Trusted by 100+ Job Seekers</span>
                 </div>
               </div>
               

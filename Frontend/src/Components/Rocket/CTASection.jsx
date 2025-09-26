@@ -45,7 +45,7 @@ const CTASection = () => {
     {
       icon: 'Users',
       title: 'Community Access',
-      description: 'Connect with 50,000+ developers worldwide'
+      description: 'Connect with 50+ developers worldwide'
     },
     {
       icon: 'Bot',
@@ -85,75 +85,13 @@ const CTASection = () => {
             </h2>
 
             <p className="text-xl text-muted-foreground mb-8 max-w-2xl mx-auto leading-relaxed">
-              Join 50,000+ developers who've transformed their careers with intelligent skill tracking, AI mentorship, and community-driven growth.
+              Join 50+ developers who've transformed their careers with intelligent skill tracking, AI mentorship, and community-driven growth.
             </p>
 
-            {/* Primary CTAs */}
-            <div className="flex flex-col sm:flex-row gap-4 justify-center mb-12">
-              <Button
-                variant="default"
-                size="xl"
-                iconName="Play"
-                iconPosition="left"
-                onClick={handleStartAssessment}
-                className="btn-glow text-lg px-8 py-4"
-              >
-                Start Free Assessment
-              </Button>
-              
-              <Button
-                variant="outline"
-                size="xl"
-                iconName="Eye"
-                iconPosition="left"
-                onClick={handleViewDemo}
-                className="text-lg px-8 py-4"
-              >
-                Watch Demo
-              </Button>
-            </div>
-
-            {/* Email Signup */}
-            <div className="max-w-md mx-auto">
-              <p className="text-sm text-muted-foreground mb-4">
-                Or get started with your email:
-              </p>
-              
-              {!isSubmitted ? (
-                <form onSubmit={handleEmailSubmit}>
-                  <div  className="flex border rounded-lg justify-between"> 
-                      <Input
-                    type="email"
-                    placeholder="Enter your email address"
-                    value={email}
-                    onChange={(e) => setEmail(e?.target?.value)}
-                    className=" w-full flex-1 border-none "
-                    required
-                  />
-                  <Button
-                    type="submit"
-                    variant="default"
-                    loading={isSubmitting}
-                    disabled={!email || isSubmitting}
-                    iconName="ArrowRight"
-                    iconPosition="right"
-                  >
-                    {isSubmitting ? 'Sending...' : 'Get Started'}
-                  </Button>
-                  </div>
-                
-                </form>
-              ) : (
-                <div className="flex items-center justify-center space-x-2 p-4 bg-success/10 border border-success/20 rounded-lg text-success animate-fade-in">
-                  <Icon name="CheckCircle" size={20} />
-                  <span className="font-medium">Welcome to CodeMinder Pro! Check your email.</span>
-                </div>
-              )}
-            </div>
           </div>
 
           {/* Benefits Grid */}
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 mb-16">
+          <div className="grid md:grid-cols-2 lg:grid-cols-4 max-w-4xl gap-3 mb-16">
             {benefits?.map((benefit, index) => (
               <div
                 key={index}
@@ -188,7 +126,7 @@ const CTASection = () => {
             </div>
             <div className="flex items-center space-x-2">
               <Icon name="Users" size={16} className="text-success text-gray-700" />
-              <span>50K+ Developers Trust Us</span>
+              <span>50+ Developers Trust Us</span>
             </div>
           </div>
 

@@ -22,7 +22,7 @@ const MySheets = () => {
     if (!user) return <h3 className="text-2xl font-semibold text-center">Please log in to view your sheets.</h3>;
 
     return (
-        <section className="w-full md:mb-10 md:py-10 md:pl-5">
+        <section className="w-full md:mb-10 md:py-10 md:px-5">
             <h3 className="text-2xl font-semibold text-gray-800">My Sheets</h3>
             <p className="text-sm text-gray-600">Based on your personal and followed sheets</p>
 

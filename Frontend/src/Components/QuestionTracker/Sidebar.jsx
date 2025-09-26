@@ -65,7 +65,7 @@ const NavLinks = ({ closeMenu }) => {
     ];
 
     return (
-        <ul className="flex flex-col gap-2 w-full py-10 px-4">
+        <ul className="flex sticky top-10 flex-col gap-2 w-full py-10 px-4">
             {links.map(({ to, label, icon }) => (
                 <Link key={to} to={to} className="w-full" onClick={closeMenu}>
                     <Button

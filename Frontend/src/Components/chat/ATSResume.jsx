@@ -16,6 +16,7 @@ function ATSResume() {
   const [file, setFile] = useState(null);
   const [fileName, setFileName] = useState("");
   const [loading, setLoading] = useState(false);
+  const [resData, setresData] = useState(true);
   const [response, setResponse] = useState(null);
   const [error, setError] = useState("");
   const [category, setCategory] = useState("");
@@ -60,7 +61,7 @@ function ATSResume() {
       );
 
       setResponse(res.data);
-
+      setresData(false);
       const jobRes = await axios.get(
         `${import.meta.env.VITE_API_URL}/api/jobs?category=${category}`
       );
@@ -85,7 +86,7 @@ function ATSResume() {
   ];
 
   return (
-    <div className="min-h-screen My Workspace py-8 px-2 sm:px-6 lg:px-8">
+    <div className="min-h-screen py-8 px-2 sm:px-6 lg:px-8">
       <div className="max-w-5xl mx-auto">
         <div className="py-3">
           <h2 className="font-bold text-3xl text-gray-600">
@@ -101,7 +102,7 @@ function ATSResume() {
           <div className="p-2 sm:p-8">
             <form onSubmit={handleSubmit} className="space-y-6">
               {/* File Upload */}
-              <div className="bg-gray-100 rounded-2xl ">
+              <div className="bg-gray-100 hover:bg-gray-200 transition-all ease-in-out rounded-2xl ">
                 <div className="mt-1 flex justify-center px-6 py-12  border-2 border-blue-200 border-dashed rounded-xl">
                   <div className="space-y-1 text-center">
                     {file ? (
@@ -141,42 +142,51 @@ function ATSResume() {
               </div>
 
               {/* Job Category */}
-          <div className="w-full space-y-6">
-          <div className="text-center space-y-2">
-            <h3 className="text-xl font-semibold text-gray-700">
-              Target Job Category
-            </h3>
-            <p className="text-muted-foreground">
-              Specify your target role for personalized analysis and
-              recommendations
-            </p>
-          </div>
-          <div className="space-y-4">
-           <Icon name="Search" size={26} className="text-blue-500 absolute mt-3 ml-2" />
-            <input
-              type="text"
-              id="category"
-              value={category}
-              placeholder="e.g., Software Engineer, Data Scientist, Product Manager"
-              onChange={(e) => setCategory(e.target.value)}
-              description="Enter the specific role you're targeting for tailored ATS optimization"
-              className="focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 pr-12 py-3 bg-gray-100 border-gray-300 rounded-full"
-            /> 
+              <div className="w-full space-y-6">
+                <div className="text-center space-y-2">
+                  <h3 className="text-xl font-semibold text-gray-700">
+                    Target Job Category
+                  </h3>
+                  <p className="text-muted-foreground">
+                    Specify your target role for personalized analysis and
+                    recommendations
+                  </p>
+                </div>
+                <div className="space-y-4">
+                  <Icon
+                    name="Search"
+                    size={20}
+                    className="text-blue-500 absolute mt-3.5 ml-2"
+                  />
+                  <input
+                    type="text"
+                    id="category"
+                    value={category}
+                    placeholder="e.g., Software Engineer, Data Scientist, Product Manager"
+                    onChange={(e) => setCategory(e.target.value)}
+                    description="Enter the specific role you're targeting for tailored ATS optimization"
+                    className="focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 pr-12 py-3 bg-gray-100 hover:bg-gray-200 transition-all ease-in-out border-gray-300 rounded-full"
+                  />
 
-            <div className="space-y-3">
-              <div className="flex items-center gap-2">
-                <Icon name="Sparkles" size={16} className="text-blue-500" />
-                <span className="text-sm font-medium text-foreground">
-                  Popular Categories
-                </span>
-              </div>
-
-              <div className="grid grid-cols-2 md:grid-cols-4 gap-2">
-                {popularCategories?.map((category, index) => (
-                  <p
-                    key={index}
-                    onClick={() => setCategory(category)}
-                    className={`
+                  <div className="space-y-3">
+                    {resData ? (
+                      <>
+                        <div className="flex items-center gap-2">
+                          <Icon
+                            name="Sparkles"
+                            size={16}
+                            className="text-blue-500"
+                          />
+                          <span className="text-sm font-medium text-foreground">
+                            Popular Categories
+                          </span>
+                        </div>{" "}
+                        <div className="grid grid-cols-2 md:grid-cols-4 gap-2">
+                          {popularCategories?.map((category, index) => (
+                            <p
+                              key={index}
+                              onClick={() => setCategory(category)}
+                              className={`
                   px-3 py-2 text-sm rounded-lg border transition-all duration-200
                   ${
                     popularCategories === category
@@ -185,14 +195,18 @@ function ATSResume() {
                   }
                
                 `}
-                  >
-                    {category}
-                  </p>
-                ))}
+                            >
+                              {category}
+                            </p>
+                          ))}
+                        </div>{" "}
+                      </>
+                    ) : (
+                      ""
+                    )}
+                  </div>
+                </div>
               </div>
-            </div>
-          </div>
-        </div>
 
               {/* Error Message */}
               {error && (
@@ -237,7 +251,7 @@ function ATSResume() {
         {response && (
           <div className="space-y-8">
             {/* Analysis Overview */}
-            <div className="bg-white rounded-xl shadow-lg overflow-hidden">
+            <div className="bg-white rounded-xl  overflow-hidden">
               <div className="p-6 sm:p-8">
                 <div className="flex items-center mb-6">
                   <div className="p-2 rounded-full bg-green-100 mr-4">
@@ -283,7 +297,7 @@ function ATSResume() {
                 {/* Strengths */}
                 <div className="mb-8">
                   <h3 className="flex items-center text-lg font-semibold text-gray-900 mb-4">
-                    <span className="w-6 h-6 rounded-full bg-green-100 text-green-600 flex items-center justify-center mr-3">
+                    <span className="w-6 h-6 rounded-full  text-green-600 flex items-center justify-center mr-3">
                       ✓
                     </span>
                     Strengths
@@ -303,7 +317,7 @@ function ATSResume() {
                 {/* Missing Keywords */}
                 <div className="mb-8">
                   <h3 className="flex items-center text-lg font-semibold text-gray-900 mb-4">
-                    <span className="w-6 h-6 rounded-full bg-red-100 text-red-600 flex items-center justify-center mr-3">
+                    <span className="w-6 h-6 rounded-full  text-red-600 flex items-center justify-center mr-3">
                       !
                     </span>
                     Missing Keywords
@@ -323,7 +337,7 @@ function ATSResume() {
                 {/* Suggestions */}
                 <div className="mb-6">
                   <h3 className="flex items-center text-lg font-semibold text-gray-900 mb-4">
-                    <span className="w-6 h-6 rounded-full bg-blue-100 text-blue-600 flex items-center justify-center mr-3">
+                    <span className="w-6 h-6 rounded-full  text-blue-600 flex items-center justify-center mr-3">
                       💡
                     </span>
                     Improvement Suggestions
@@ -343,7 +357,7 @@ function ATSResume() {
                 {/* Summary */}
                 <div>
                   <h3 className="flex items-center text-lg font-semibold text-gray-900 mb-4">
-                    <span className="w-6 h-6 rounded-full bg-purple-100 text-purple-600 flex items-center justify-center mr-3">
+                    <span className="w-6 h-6 rounded-full text-purple-600 flex items-center justify-center mr-3">
                       📄
                     </span>
                     Summary
@@ -414,8 +428,7 @@ function ATSResume() {
           </div>
         )}
 
-        
-        <FeatureHighlights />
+        {resData ? <FeatureHighlights /> : ""}
       </div>
     </div>
   );
