@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom"; 
-import Doc from '/Users/dhanush___777/Downloads/CodeGlide/Frontend/src/assets/DOCS.png'
+import Doc from '/src/assets/DOCS.png'
 
 const PrepSimplifier = () => {
   const features = [

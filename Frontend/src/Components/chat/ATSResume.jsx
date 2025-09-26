@@ -6,9 +6,11 @@ import {
   FaCheckCircle,
   FaFilePdf,
   FaSearch,
-  FaExternalLinkAlt
+  FaExternalLinkAlt,
 } from "react-icons/fa";
 import { FiUpload, FiAlertCircle } from "react-icons/fi";
+import Icon from "../Icon/AppIcon";
+import FeatureHighlights from "../Icon/FeatureHighlights";
 
 function ATSResume() {
   const [file, setFile] = useState(null);
@@ -16,7 +18,7 @@ function ATSResume() {
   const [loading, setLoading] = useState(false);
   const [response, setResponse] = useState(null);
   const [error, setError] = useState("");
-  const [category, setCategory] = useState("React Developer");
+  const [category, setCategory] = useState("");
   const [jobs, setJobs] = useState([]);
 
   const handleFileChange = (event) => {
@@ -71,27 +73,36 @@ function ATSResume() {
     }
   };
 
+  const popularCategories = [
+    "Software Engineer",
+    "Data Scientist",
+    "Product Manager",
+    "Marketing Manager",
+    "Sales Representative",
+    "Business Analyst",
+    "UI/UX Designer",
+    "DevOps Engineer",
+  ];
+
   return (
-    <div className="min-h-screen My Workspace py-12 px-4 sm:px-6 lg:px-8">
-      <div className="max-w-4xl mx-auto">
-     
+    <div className="min-h-screen My Workspace py-8 px-2 sm:px-6 lg:px-8">
+      <div className="max-w-5xl mx-auto">
+        <div className="py-3">
+          <h2 className="font-bold text-3xl text-gray-600">
+            Upload Your Resume
+          </h2>
+          <p className="text-gray-500 text-base py-1">
+            Get personalized job recommendations based on your skills and
+            experience.
+          </p>
+        </div>
 
-     <div className="py-3"> 
-              <h2 className='font-bold text-3xl text-gray-600'>Upload Your Resume</h2>
-            <p className='text-gray-500 text-base py-1'>Get personalized job recommendations based on your skills and experience.</p>
-     </div>
-
-            
-        <div className="bg-gray-50 rounded-lg shadow-lg overflow-hidden mb-8">
-
-          
-          <div className="p-6 sm:p-8">
+        <div className=" rounded-lg border overflow-hidden mb-8">
+          <div className="p-2 sm:p-8">
             <form onSubmit={handleSubmit} className="space-y-6">
               {/* File Upload */}
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">
-                </label>
-                <div className="mt-1 flex justify-center px-6 pt-5 pb-6 border-2 border-gray-300 border-dashed rounded-xl">
+              <div className="bg-gray-100 rounded-2xl ">
+                <div className="mt-1 flex justify-center px-6 py-12  border-2 border-blue-200 border-dashed rounded-xl">
                   <div className="space-y-1 text-center">
                     {file ? (
                       <div className="flex items-center justify-center space-x-2">
@@ -130,24 +141,58 @@ function ATSResume() {
               </div>
 
               {/* Job Category */}
-              <div>
-                <label htmlFor="category" className="block text-sm font-medium text-gray-700 mb-2">
-                  Target Job Category
-                </label>
-                <div className="relative rounded-md shadow-sm">
-                  <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                    <FaSearch className="h-4 w-4 text-gray-400" />
-                  </div>
-                  <input
-                    type="text"
-                    id="category"
-                    value={category}
-                    onChange={(e) => setCategory(e.target.value)}
-                    className="focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 pr-12 py-3 border-gray-300 rounded-md"
-                    placeholder="e.g. React Developer, Data Scientist"
-                  />
-                </div>
+          <div className="w-full space-y-6">
+          <div className="text-center space-y-2">
+            <h3 className="text-xl font-semibold text-gray-700">
+              Target Job Category
+            </h3>
+            <p className="text-muted-foreground">
+              Specify your target role for personalized analysis and
+              recommendations
+            </p>
+          </div>
+          <div className="space-y-4">
+           <Icon name="Search" size={26} className="text-blue-500 absolute mt-3 ml-2" />
+            <input
+              type="text"
+              id="category"
+              value={category}
+              placeholder="e.g., Software Engineer, Data Scientist, Product Manager"
+              onChange={(e) => setCategory(e.target.value)}
+              description="Enter the specific role you're targeting for tailored ATS optimization"
+              className="focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 pr-12 py-3 bg-gray-100 border-gray-300 rounded-full"
+            /> 
+
+            <div className="space-y-3">
+              <div className="flex items-center gap-2">
+                <Icon name="Sparkles" size={16} className="text-blue-500" />
+                <span className="text-sm font-medium text-foreground">
+                  Popular Categories
+                </span>
               </div>
+
+              <div className="grid grid-cols-2 md:grid-cols-4 gap-2">
+                {popularCategories?.map((category, index) => (
+                  <p
+                    key={index}
+                    onClick={() => setCategory(category)}
+                    className={`
+                  px-3 py-2 text-sm rounded-lg border transition-all duration-200
+                  ${
+                    popularCategories === category
+                      ? "bg-primary text-primary-foreground border-primary shadow-sm"
+                      : "bg-card text-muted-foreground border-border hover:border-primary/50 hover:text-foreground hover:bg-primary/5"
+                  }
+               
+                `}
+                  >
+                    {category}
+                  </p>
+                ))}
+              </div>
+            </div>
+          </div>
+        </div>
 
               {/* Error Message */}
               {error && (
@@ -157,7 +202,9 @@ function ATSResume() {
                       <FiAlertCircle className="h-5 w-5 text-red-400" />
                     </div>
                     <div className="ml-3">
-                      <h3 className="text-sm font-medium text-red-800">{error}</h3>
+                      <h3 className="text-sm font-medium text-red-800">
+                        {error}
+                      </h3>
                     </div>
                   </div>
                 </div>
@@ -167,7 +214,11 @@ function ATSResume() {
               <button
                 type="submit"
                 disabled={loading || !file}
-                className={`w-full flex justify-center items-center py-3 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white ${loading || !file ? 'bg-blue-400 cursor-not-allowed' : 'bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500'} transition-colors duration-200`}
+                className={`w-full flex justify-center items-center py-3 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white ${
+                  loading || !file
+                    ? "bg-blue-400 cursor-not-allowed"
+                    : "bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+                } transition-colors duration-200`}
               >
                 {loading ? (
                   <>
@@ -192,25 +243,40 @@ function ATSResume() {
                   <div className="p-2 rounded-full bg-green-100 mr-4">
                     <FaCheckCircle className="h-6 w-6 text-green-600" />
                   </div>
-                  <h2 className="text-2xl font-bold text-gray-900">Analysis Results</h2>
+                  <h2 className="text-2xl font-bold text-gray-900">
+                    Analysis Results
+                  </h2>
                 </div>
 
                 {/* Match Percentage */}
                 <div className="mb-8">
                   <div className="flex justify-between mb-2">
-                    <span className="text-sm font-medium text-gray-700">ATS Compatibility</span>
+                    <span className="text-sm font-medium text-gray-700">
+                      ATS Compatibility
+                    </span>
                     <span className="text-sm font-semibold text-blue-600">
                       {response.matchPercentage}% Match
                     </span>
                   </div>
                   <div className="w-full bg-gray-200 rounded-full h-2.5">
                     <div
-                      className={`h-2.5 rounded-full ${response.matchPercentage >= 70 ? 'bg-green-500' : response.matchPercentage >= 40 ? 'bg-yellow-500' : 'bg-red-500'}`}
+                      className={`h-2.5 rounded-full ${
+                        response.matchPercentage >= 70
+                          ? "bg-green-500"
+                          : response.matchPercentage >= 40
+                          ? "bg-yellow-500"
+                          : "bg-red-500"
+                      }`}
                       style={{ width: `${response.matchPercentage}%` }}
                     ></div>
                   </div>
                   <p className="mt-2 text-sm text-gray-500">
-                    Your resume matches <span className="font-semibold">{response.matchPercentage}%</span> of the typical requirements for a <span className="font-semibold">"{category}"</span> role.
+                    Your resume matches{" "}
+                    <span className="font-semibold">
+                      {response.matchPercentage}%
+                    </span>{" "}
+                    of the typical requirements for a{" "}
+                    <span className="font-semibold">"{category}"</span> role.
                   </p>
                 </div>
 
@@ -225,7 +291,9 @@ function ATSResume() {
                   <ul className="space-y-3">
                     {response.strengths.map((point, idx) => (
                       <li key={idx} className="flex items-start">
-                        <span className="flex-shrink-0 h-5 w-5 text-green-500 mt-0.5 mr-2">•</span>
+                        <span className="flex-shrink-0 h-5 w-5 text-green-500 mt-0.5 mr-2">
+                          •
+                        </span>
                         <span className="text-gray-700">{point}</span>
                       </li>
                     ))}
@@ -263,7 +331,9 @@ function ATSResume() {
                   <ul className="space-y-3">
                     {response.suggestions.map((suggestion, idx) => (
                       <li key={idx} className="flex items-start">
-                        <span className="flex-shrink-0 h-5 w-5 text-blue-500 mt-0.5 mr-2">•</span>
+                        <span className="flex-shrink-0 h-5 w-5 text-blue-500 mt-0.5 mr-2">
+                          •
+                        </span>
                         <span className="text-gray-700">{suggestion}</span>
                       </li>
                     ))}
@@ -306,12 +376,16 @@ function ATSResume() {
                           />
                           <div className="flex-1">
                             <div className="flex items-center justify-between">
-                              <h3 className="text-lg font-semibold text-gray-900">{job.title}</h3>
+                              <h3 className="text-lg font-semibold text-gray-900">
+                                {job.title}
+                              </h3>
                               <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800">
                                 {job.duration}
                               </span>
                             </div>
-                            <p className="text-sm text-gray-600 mt-1">{job.company}</p>
+                            <p className="text-sm text-gray-600 mt-1">
+                              {job.company}
+                            </p>
                             <div className="mt-2 flex flex-wrap items-center gap-2">
                               <span className="inline-flex items-center text-sm text-gray-500">
                                 📍 {job.location}
@@ -326,7 +400,8 @@ function ATSResume() {
                               rel="noopener noreferrer"
                               className="mt-3 inline-flex items-center text-sm font-medium text-blue-600 hover:text-blue-800"
                             >
-                              View Job <FaExternalLinkAlt className="ml-1 h-3 w-3" />
+                              View Job{" "}
+                              <FaExternalLinkAlt className="ml-1 h-3 w-3" />
                             </a>
                           </div>
                         </div>
@@ -338,6 +413,9 @@ function ATSResume() {
             )}
           </div>
         )}
+
+        
+        <FeatureHighlights />
       </div>
     </div>
   );
