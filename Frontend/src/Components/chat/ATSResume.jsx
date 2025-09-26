@@ -74,24 +74,22 @@ function ATSResume() {
   return (
     <div className="min-h-screen My Workspace py-12 px-4 sm:px-6 lg:px-8">
       <div className="max-w-4xl mx-auto">
-        {/* Header */}
-        {/* <div className="text-center mb-10">
-          <h1 className="text-4xl font-extrabold text-gray-900 sm:text-5xl mb-3 bg-clip-text text-transparent bg-gradient-to-r from-purple-600 to-blue-500">
-            Smart Resume Analyzer
-          </h1>
-          <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-            Get instant feedback on your resume's ATS compatibility and discover relevant job opportunities.
-          </p>
-        </div> */}
+     
 
-        {/* Upload Card */}
-        <div className="bg-gray-100 rounded-lg shadow-lg overflow-hidden mb-8">
+     <div className="py-3"> 
+              <h2 className='font-bold text-3xl text-gray-600'>Upload Your Resume</h2>
+            <p className='text-gray-500 text-base py-1'>Get personalized job recommendations based on your skills and experience.</p>
+     </div>
+
+            
+        <div className="bg-gray-50 rounded-lg shadow-lg overflow-hidden mb-8">
+
+          
           <div className="p-6 sm:p-8">
             <form onSubmit={handleSubmit} className="space-y-6">
               {/* File Upload */}
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-2">
-                  Upload Your Resume (PDF)
                 </label>
                 <div className="mt-1 flex justify-center px-6 pt-5 pb-6 border-2 border-gray-300 border-dashed rounded-xl">
                   <div className="space-y-1 text-center">
