@@ -149,7 +149,7 @@ const HeroSection = () => {
       </motion.div> */}
           <div className="inline-flex mb-10 items-center space-x-2 text-indigo-500 px-4 py-2 rounded-full text-sm font-medium ">
             <Icon name="Sparkles" size={16} />
-            <span>Join 50,000+ developers on their coding journey</span>
+            <span>Join 50+ developers on their coding journey</span>
           </div>
    <SplitText/>
       <h3 className="text-2xl font-medium text-gray-400 text-center max-w-lg mt-2">

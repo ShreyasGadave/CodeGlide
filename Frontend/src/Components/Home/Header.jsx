@@ -15,7 +15,7 @@ const Header = () => {
     { name: "Resume", path: "/resume" },
     { name: "Ai Guide", path: "/chat" },
     { name: "AI Interview", path: "/ainterview" },
-    { name: "Community", path: "/community" },
+    // { name: "Community", path: "/community" },
   ];
 
   const dispatch = useDispatch();

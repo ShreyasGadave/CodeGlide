@@ -25,7 +25,7 @@ const ChatFeed = ({ chatHistory, activeGroup }) => {
               <p>
                 <img className="h-[40px] w-[40px] rounded-full" src={msg?.profilephoto} alt="" />
               </p>
-              <p className="font-semibold">{user.name}</p>
+              <p className="font-semibold">{user?.name}</p>
             </div>
             <p className="font-semibold">{msg.text}</p>
             <p className="text-xs text-gray-300">{msg.timestamp}</p>

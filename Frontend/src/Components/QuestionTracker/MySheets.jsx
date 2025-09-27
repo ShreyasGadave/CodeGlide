@@ -26,7 +26,7 @@ const MySheets = () => {
             <h3 className="text-2xl font-semibold text-gray-800">My Sheets</h3>
             <p className="text-sm text-gray-600">Based on your personal and followed sheets</p>
 
-            <h4 className="text-xl font-medium text-gray-600 mt-4">Followed Sheets</h4>
+            <h4 className="text-xl font-medium text-gray-600 py-4">Followed Sheets</h4>
 
             {loading ? (
                 <p className="text-gray-600">Loading sheets...</p>

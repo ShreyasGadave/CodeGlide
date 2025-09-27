@@ -90,7 +90,7 @@ const HeroSection = () => {
               </h1>
               
               <p className="text-xl text-muted-foreground leading-relaxed max-w-lg">
-                Join 50,000+ developers who've accelerated their careers with intelligent skill tracking, AI mentorship, and community-driven growth.
+                Join 50+ developers who've accelerated their careers with intelligent skill tracking, AI mentorship, and community-driven growth.
               </p>
             </div>
 

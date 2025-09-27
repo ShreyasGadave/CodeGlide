@@ -3,7 +3,7 @@ import { Card, CardContent } from "../ui/card";
 
 const SheetCard = ({ title, description, questions }) => {
     return (
-        <Card className="group relative flex flex-col justify-between border border-gray-200 rounded-2xl p-4 shadow-sm transition-transform duration-200 hover:scale-[1.02] md:h-[200px]">
+        <Card className="group relative flex flex-col justify-between  p-4 shadow-sm transition-transform duration-200 hover:scale-[1.02] md:h-[200px]">
             <CardContent className="p-0 flex flex-col h-full justify-between">
                 <a
                     href="/question-tracker/sheet/striver-sde-sheet?category=all"

@@ -298,7 +298,7 @@ export default function Calendar() {
     const emptyCells = Array(firstDayOfMonth).fill(null);
 
     return (
-        <div className="calendar-container pb-10 bg-white rounded-xl max-w-6xl mx-auto">
+        <div className="calendar-container pb-10 bg-white rounded-xl max-w-5xl mx-auto">
             <h2 className='font-bold text-3xl text-gray-600'>Competitive Programming Contest Calendar</h2>
             <p className='text-gray-500 text-base py-1'>Stay updated with upcoming contests across platforms - filter by site, search by name, and never miss a challenge.</p>
             <CalendarHeader currentMonth={currentMonth} prevMonth={prevMonth} nextMonth={nextMonth} />

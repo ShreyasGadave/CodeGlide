@@ -267,7 +267,7 @@ const LiveActivityFeed = () => {
             <div className="inline-flex items-center space-x-3 px-6 py-3  border border-primary/20 rounded-full">
               <Icon name="Users" size={20} className="text-primary" />
               <span className="text-primary font-medium">
-                Join 50,000+ developers accelerating their careers
+                Join 50+ developers accelerating their careers
               </span>
             </div>
           </div>

@@ -116,11 +116,11 @@ export default function WorkspaceTable() {
           value={searchQuery}
           onChange={(e) => setSearchQuery(e.target.value)}
         />
-        <div className="flex flex-col md:flex-row gap-2 items-start md:items-center">
-          <label htmlFor="difficultyFilter" className="text-sm font-medium">Filter by Difficulty:</label>
+        <div className="flex border  w-fit px-3 rounded-lg flex-col md:flex-row gap-2 items-start md:items-center">
+          <label htmlFor="difficultyFilter" className="text-sm font-medium text-gray-700">Filter by Difficulty:</label>
           <select
             id="difficultyFilter"
-            className="border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+            className=" rounded-md p-2 text-gray-700 focus:outline-none"
             value={difficultyFilter}
             onChange={(e) => setDifficultyFilter(e.target.value)}
           >
