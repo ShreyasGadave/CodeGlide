@@ -60,9 +60,9 @@ const SheetDetails = () => {
     ];
 
     return (
-        <div>
+        <div className="mt-5">
             {/* Header Section */}
-            <header className="w-full flex flex-col md:flex-row justify-between px-4 py-4 bg-white border md:rounded-t-md shadow-sm">
+            <header className="w-full flex flex-col md:flex-row justify-between px-4 py-4">
                 {/* Left Section */}
                 <div className="w-full md:w-3/4 flex flex-col gap-2">
                     <h2 className="text-2xl md:text-4xl font-semibold text-gray-800">{title}</h2>
@@ -82,15 +82,15 @@ const SheetDetails = () => {
                 </div>
 
                 {/* Right Section - Pie Chart */}
-                <div className="w-full md:w-1/4 flex justify-center md:justify-end">
+                <div className="w-full md:w-1/4 flex justify-center items-center ">
                     <div className="relative w-[120px] md:w-[160px] flex flex-col items-center">
-                        <PieChart width={120} height={120}>
+                        <PieChart width={160} height={160}>
                             <Pie
                                 data={data}
                                 cx="50%"
                                 cy="50%"
-                                innerRadius={40}
-                                outerRadius={50}
+                                innerRadius={60}
+                                outerRadius={70}
                                 fill="#8884d8"
                                 paddingAngle={2}
                                 dataKey="value"
@@ -103,17 +103,17 @@ const SheetDetails = () => {
                         </PieChart>
 
                         {/* Progress Count */}
-                        <div className="absolute top-[40%] transform -translate-y-1/2 w-fit text-lg font-bold text-gray-800">
+                        <div className="absolute top-[50%] transform -translate-y-1/2 w-fit text-lg font-bold text-gray-800">
                             <div className="flex flex-col text-center">
-                                <span className="text-2xl">{completed}</span>
+                                <span className="text-3xl">{completed}</span>
                                 <hr className="w-10 border-black mx-auto" />
-                                <span className="text-xl text-gray-500">{total}</span>
+                                <span className="text-3xl text-gray-500">{total}</span>
                             </div>
                         </div>
                     </div>
                 </div>
             </header>
-
+<hr />
             {/* Questions List */}
             <div className="p-4">
                 <DropdownTable topics={sheetQuestions} sheetId={sheetId} />

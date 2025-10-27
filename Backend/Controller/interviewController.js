@@ -6,45 +6,58 @@ import { generateQuestions } from "../utils/geminiApi.js";
 
 export const createInterview = async (req, res) => {
   try {
+    // console.log("Request body:", req.body);
+
+    // Hardcoded user ID for testing
+    const userId = "64f1a2b3c4d5e6f7890abcd1"; // replace with a valid ObjectId
+
     const { jobRole, jobDescription, experienceLevel } = req.body;
+    if (!jobRole || !jobDescription || !experienceLevel) {
+      console.log("Missing fields in request body");
+      return res.status(400).json({ message: "All fields are required" });
+    }
 
-    const userId = req.user.id;
-    // 🔹 Step 1: Call Gemini API to Generate Questions
-    const questions = await generateQuestions(
-      jobRole,
-      jobDescription,
-      experienceLevel
-    );
-    // console.log("questions : ", questions);
+    console.log("Generating questions...");
+    let questions;
+    try {
+      questions = await generateQuestions(jobRole, jobDescription, experienceLevel);
+      // console.log("Questions generated:", questions);
+    } catch (err) {
+      console.error("Gemini API error:", err);
+      return res.status(500).json({ message: "Failed to generate AI questions", error: err.message });
+    }
 
-    // 🔹 Step 2: Format Questions Before Saving
-    const formattedQuestions = questions.map((q) => ({
+    const formattedQuestions = questions.map(q => ({
       questionText: q.question,
-      aiAnswer: q.answer, // AI-Generated Correct Answer
-      userAnswer: null, // No answer yet
-      aiFeedback: null, // No feedback yet
-      score: 0, // No score yet
+      aiAnswer: q.answer,
+      userAnswer: null,
+      aiFeedback: null,
+      score: 0
     }));
 
-    // 🔹 Step 3: Save Interview Data in MongoDB
+    console.log("Saving interview to DB...");
     const newInterview = new Interview({
       userId,
       jobRole,
       jobDescription,
       experienceLevel,
-      questions: formattedQuestions,
+      questions: formattedQuestions
     });
 
     await newInterview.save();
+    console.log("Interview saved successfully");
+
     res.status(201).json({
       message: "Interview created successfully",
       interviewId: newInterview._id,
-      newInterview,
+      newInterview
     });
   } catch (error) {
+    console.error("Create Interview error:", error);
     res.status(500).json({ error: error.message });
   }
 };
+
 
 export const getInterviewById = async (req, res) => {
   try {

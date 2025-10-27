@@ -154,7 +154,7 @@ const HeroSection = () => {
    <SplitText/>
       <h3 className="text-2xl font-medium text-gray-400 text-center max-w-lg mt-2">
         Codo
-        <span class="bg-gradient-to-r from-[#FFF045] via-[#00CDD7] to-[#2086D7] bg-clip-text text-transparent">
+        <span className="bg-gradient-to-r from-[#FFF045] via-[#00CDD7] to-[#2086D7] bg-clip-text text-transparent">
           Glide 
         </span>{" "}
          helps you navigate and track your coding journey to success

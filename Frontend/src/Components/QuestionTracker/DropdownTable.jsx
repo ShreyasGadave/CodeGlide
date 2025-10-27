@@ -97,7 +97,7 @@ export default function DropdownTable({ topics, sheetId }) {
             {topics.map((topicData, index) => (
                 <Card key={index} className="border rounded-lg overflow-hidden">
                     <div
-                        className="flex justify-between items-center bg-orange-100 px-4 py-3 cursor-pointer"
+                        className="flex justify-between items-center bg-yellow-100 px-4 py-3 cursor-pointer"
                         onClick={() => toggleTopic(topicData.topic)}
                     >
                         <h3 className="font-semibold text-sm">{topicData.topic}</h3>

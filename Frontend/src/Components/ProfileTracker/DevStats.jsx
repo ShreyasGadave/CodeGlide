@@ -48,7 +48,7 @@ function DevStats() {
 
     return (
         <div className="flex flex-col gap-4">
-            <div className="lg:grid w-full gap-4 lg:space-y-0 space-y-4 lg:grid-cols-5">
+            <div className="lg:grid w-full gap-4 lg:space-y-0 space-y-4 lg:grid-cols-1">
                 <div className="col-span-2 grid md:grid-cols-2 gap-4">
                     {/* Total Contributions */}
                     <StatCard title="Total Contributions" value={totalContributions} />
@@ -57,9 +57,9 @@ function DevStats() {
                 </div>
 
                 {/* Contribution Heatmap */}
-                <div className="p-4 w-full bg-white h-full pt-4 relative border rounded-lg shadow-sm lg:col-span-3">
+                <div className=" w-full bg-white h-full  relative border rounded-lg shadow-sm lg:col-span-3">
                     <div className="flex justify-center">
-                        <div className="p-4 border rounded-lg shadow-sm bg-gray-50 w-full overflow-hidden">
+                        <div className="p-4 border rounded-lg shadow-sm bg-white w-full overflow-hidden">
                             <CalendarHeatmap
                                 startDate={new Date(new Date().setDate(new Date().getDate() - 365))}
                                 endDate={new Date()}

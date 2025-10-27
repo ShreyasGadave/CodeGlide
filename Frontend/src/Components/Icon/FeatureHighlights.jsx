@@ -26,7 +26,7 @@ const FeatureHighlights = () => {
   ];
 
   return (
-    <div className="max-w-5xl">
+    <div className="max-w-6xl">
       <div className="text-center mb-8">
         <h2 className="text-2xl font-bold text-gray-700 mb-2">
           Why Choose Our ATS Resume Analyzer?

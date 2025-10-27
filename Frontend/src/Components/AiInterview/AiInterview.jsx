@@ -37,7 +37,7 @@ const AiInterview = () => {
 
     return (
         <motion.div
-            className="max-w-4xl mx-auto mt-20  p-6 min-h-screen bg-gray-50"
+            className="max-w-4xl mx-auto   p-6 min-h-screen "
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}

@@ -65,13 +65,13 @@ const NavLinks = ({ closeMenu }) => {
     ];
 
     return (
-        <ul className="flex sticky top-10 flex-col gap-2 w-full py-10 px-4">
+        <ul className="flex sticky top-10 flex-col gap-2 w-full py-10 px-2">
             {links.map(({ to, label, icon }) => (
                 <Link key={to} to={to} className="w-full" onClick={closeMenu}>
                     <Button
-                        className={`w-full flex items-center gap-3 justify-start px-4 py-3 rounded-lg transition-all
-                            text-gray-700 bg-white border border-gray-300
-                            hover:bg-gray-100 hover:shadow-md 
+                        className={`w-full flex items-center border gap-3 justify-start transition-all
+                            text-gray-700 bg-white
+                            hover:bg-gray-100
                             ${location.pathname === to ? "bg-blue-100 text- font-semibold" : ""}`}
                     >
                         {icon} <span>{label}</span>

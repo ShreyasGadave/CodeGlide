@@ -330,7 +330,7 @@ const AIInterviewPage = () => {
 
     // Setup socket connection and auto-start monitoring
     useEffect(() => {
-        const socket = io("http://localhost:5000", {
+        const socket = io("http://localhost:5003", {
             transports: ["websocket"],
             reconnectionAttempts: 5,
             reconnectionDelay: 1000

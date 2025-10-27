@@ -50,7 +50,7 @@ export default function InterviewDashBord() {
   };
 
   return (
-    <div className="min-h-screen  py-8 max-w-5xl mx-auto">
+    <div className="min-h-screen  py-8 max-w-6xl mx-auto">
       <h2 className="font-bold text-3xl text-gray-600">
         AI Interview Dashboard
       </h2>
@@ -61,7 +61,7 @@ export default function InterviewDashBord() {
 
       <div className="flex justify-center mb-8"></div>
 
-      <div className="max-w-4xl mx-auto border-t bg-gradient-to-b from-gray-200 vai-gray-100 to-transparent rounded-lg p-6">
+      <div className="max-w-5xl mx-auto border-t bg-gradient-to-b from-gray-200 vai-gray-100 to-transparent rounded-lg p-6">
         <div className="flex justify-between">
           
           <div><h2 className="text-2xl font-semibold text-gray-700 mb-4">

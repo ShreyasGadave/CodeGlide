@@ -101,5 +101,9 @@ def handle_frame(data):
     result = process_frame(data)
     socketio.emit("face_data", result)
 
+@app.route('/', )
+def home():
+    return "<h1>Hello</h1>"
+
 if __name__ == "__main__":
-    socketio.run(app, host="0.0.0.0", port=5000, debug=True)
+    socketio.run(app, host="0.0.0.0", port=5003, debug=True)

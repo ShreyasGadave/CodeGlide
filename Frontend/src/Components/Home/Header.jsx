@@ -42,7 +42,7 @@ const Header = () => {
       className={`  w-full backdrop-blur-md border-b border-gray-200 dark:border-gray-800  z-50 transition-all duration-300 ${
         isScrolled
           ? "bg-gray-200 dark:bg-gray-900/50 backdrop-blur-lg"
-          : "bg-gray-100 dark:bg-gray-900/70"
+          : "bg-gray-300 dark:bg-gray-900/70"
       }`}
     >
       <div className="flex items-center justify-between px-6 py-2">

@@ -87,7 +87,7 @@ function ATSResume() {
 
   return (
     <div className="min-h-screen py-8 px-2 sm:px-6 lg:px-8">
-      <div className="max-w-5xl mx-auto">
+      <div className="max-w-6xl mx-auto">
         <div className="py-3">
           <h2 className="font-bold text-3xl text-gray-600">
             Upload Your Resume
@@ -371,7 +371,7 @@ function ATSResume() {
 
             {/* Jobs Section */}
             {jobs.length > 0 && (
-              <div className="bg-white rounded-xl shadow-lg overflow-hidden">
+              <div className=" rounded-xl overflow-hidden">
                 <div className="p-6 sm:p-8">
                   <h2 className="text-2xl font-bold text-gray-900 mb-6">
                     Recommended Jobs for "{category}"

@@ -4,7 +4,6 @@ import { Provider } from 'react-redux';
 import { store } from './App/Store';
 import "react-toastify/dist/ReactToastify.css";
 
-
 import LandingPage from './Pages/LandingPage';
 import QuestionTracker from './Pages/QuestionTracker';
 import EventTracker from './Pages/EventTracker';
