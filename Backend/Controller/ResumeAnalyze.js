@@ -25,7 +25,7 @@ const extractTextFromPDF = async (buffer) => {
 // 🤖 Analyze Resume Against Job Category
 const analyzeResumeAgainstCategory = async (resumeText, category, userId) => {
   const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
-const model = genAI.getGenerativeModel({ model:'gemini-2.5-flash-lite' });
+const model = genAI.getGenerativeModel({ model:'gemini-2.5-flash' });
 
   const prompt = `
 You are an expert resume evaluator. Given the following resume text, analyze how suitable the candidate is for the job role: "${category}".
