@@ -15,7 +15,7 @@ const RoadmapForm = () => {
     setLoading(true);
     try {
       const response = await axios.post(
-        "http://localhost:8000/api/create/roadmap",
+        `${import.meta.env.VITE_API_URL}/api/create/roadmap`,
         data
       ); // Adjust the backend URL as needed
       setRoadmap(response.data.roadmap);
@@ -34,116 +34,120 @@ const RoadmapForm = () => {
         <p className="text-gray-500 text-base py-1 pb-3">
           Prepare smarter with personalized AI insights — track progress,
           enhance skills, and ace every interview.
-        </p>  <div className=" border p-8 rounded-md">
-        <form onSubmit={handleSubmit(onSubmit)} className="space-y-4 ">
-          {/* Goal */}
-          <div>
-            <label
-              htmlFor="goal"
-              className="block text-sm font-medium text-gray-700"
-            >
-              Goal
-            </label>
-            <input
-              type="text"
-              id="goal"
-              {...register("goal", { required: "Goal is required" })}
-              className="w-full mt-1 p-2 border border-gray-300 rounded-md"
-            />
-            {errors.goal && (
-              <p className="text-red-500 text-sm">{errors.goal.message}</p>
-            )}
-          </div>
+        </p>{" "}
+        <div className=" border p-8 rounded-md">
+          <form onSubmit={handleSubmit(onSubmit)} className="space-y-4 ">
+            {/* Goal */}
+            <div>
+              <label
+                htmlFor="goal"
+                className="block text-sm font-medium text-gray-700"
+              >
+                Goal
+              </label>
+              <input
+                type="text"
+                id="goal"
+                {...register("goal", { required: "Goal is required" })}
+                className="w-full mt-1 p-2 border border-gray-300 rounded-md"
+              />
+              {errors.goal && (
+                <p className="text-red-500 text-sm">{errors.goal.message}</p>
+              )}
+            </div>
 
-          {/* Skill Level */}
-          <div>
-            <label
-              htmlFor="skillLevel"
-              className="block text-sm font-medium text-gray-700"
-            >
-              Skill Level
-            </label>
-            <select
-              id="skillLevel"
-              {...register("skillLevel", {
-                required: "Skill Level is required",
-              })}
-              className="w-full mt-1 p-2 border border-gray-300 rounded-md"
-            >
-              <option value="">Select Skill Level</option>
-              <option value="Beginner">Beginner</option>
-              <option value="Intermediate">Intermediate</option>
-              <option value="Advanced">Advanced</option>
-            </select>
-            {errors.skillLevel && (
-              <p className="text-red-500 text-sm">
-                {errors.skillLevel.message}
-              </p>
-            )}
-          </div>
+            {/* Skill Level */}
+            <div>
+              <label
+                htmlFor="skillLevel"
+                className="block text-sm font-medium text-gray-700"
+              >
+                Skill Level
+              </label>
+              <select
+                id="skillLevel"
+                {...register("skillLevel", {
+                  required: "Skill Level is required",
+                })}
+                className="w-full mt-1 p-2 border border-gray-300 rounded-md"
+              >
+                <option value="">Select Skill Level</option>
+                <option value="Beginner">Beginner</option>
+                <option value="Intermediate">Intermediate</option>
+                <option value="Advanced">Advanced</option>
+              </select>
+              {errors.skillLevel && (
+                <p className="text-red-500 text-sm">
+                  {errors.skillLevel.message}
+                </p>
+              )}
+            </div>
 
-          {/* Available Time Per Week */}
-          <div>
-            <label
-              htmlFor="availableTimePerWeek"
-              className="block text-sm font-medium text-gray-700"
-            >
-              Available Time Per Week (hours)
-            </label>
-            <input
-              type="number"
-              id="availableTimePerWeek"
-              {...register("availableTimePerWeek", {
-                required: "Available time is required",
-                min: 1,
-              })}
-              className="w-full mt-1 p-2 border border-gray-300 rounded-md"
-            />
-            {errors.availableTimePerWeek && (
-              <p className="text-red-500 text-sm">
-                {errors.availableTimePerWeek.message}
-              </p>
-            )}
-          </div>
+            {/* Available Time Per Week */}
+            <div>
+              <label
+                htmlFor="availableTimePerWeek"
+                className="block text-sm font-medium text-gray-700"
+              >
+                Available Time Per Week (hours)
+              </label>
+              <input
+                type="number"
+                id="availableTimePerWeek"
+                {...register("availableTimePerWeek", {
+                  required: "Available time is required",
+                  min: 1,
+                })}
+                className="w-full mt-1 p-2 border border-gray-300 rounded-md"
+              />
+              {errors.availableTimePerWeek && (
+                <p className="text-red-500 text-sm">
+                  {errors.availableTimePerWeek.message}
+                </p>
+              )}
+            </div>
 
-          {/* Learning Style */}
-          <div>
-            <label
-              htmlFor="learningStyle"
-              className="block text-sm font-medium text-gray-700"
-            >
-              Learning Style
-            </label>
-            <select
-              id="learningStyle"
-              {...register("learningStyle", {
-                required: "Learning Style is required",
-              })}
-              className="w-full mt-1 p-2 border border-gray-300 rounded-md"
-            >
-              <option value="">Select Learning Style</option>
-              <option value="Visual">Visual (Learn by seeing)</option>
-              <option value="Auditory">Auditory (Learn by listening)</option>
-              <option value="Kinesthetic">Kinesthetic (Learn by doing)</option>
-              <option value="Both">Both Practical & Theoretical</option>
-            </select>
-            {errors.learningStyle && (
-              <p className="text-red-500 text-sm">
-                {errors.learningStyle.message}
-              </p>
-            )}
-          </div>
+            {/* Learning Style */}
+            <div>
+              <label
+                htmlFor="learningStyle"
+                className="block text-sm font-medium text-gray-700"
+              >
+                Learning Style
+              </label>
+              <select
+                id="learningStyle"
+                {...register("learningStyle", {
+                  required: "Learning Style is required",
+                })}
+                className="w-full mt-1 p-2 border border-gray-300 rounded-md"
+              >
+                <option value="">Select Learning Style</option>
+                <option value="Visual">Visual (Learn by seeing)</option>
+                <option value="Auditory">Auditory (Learn by listening)</option>
+                <option value="Kinesthetic">
+                  Kinesthetic (Learn by doing)
+                </option>
+                <option value="Both">Both Practical & Theoretical</option>
+              </select>
+              {errors.learningStyle && (
+                <p className="text-red-500 text-sm">
+                  {errors.learningStyle.message}
+                </p>
+              )}
+            </div>
 
-          <div className="text-center">
-            <button
-              type="submit"
-              className="w-full bg-blue-500 text-white py-2 rounded-md"
-              disabled={loading}
-            >
-              {loading ? "Generating..." : "Generate Roadmap"}
-            </button>
-          </div>
-        </form> </div>
+            <div className="text-center">
+              <button
+                type="submit"
+                className="w-full bg-blue-500 text-white py-2 rounded-md"
+                disabled={loading}
+              >
+                {loading ? "Generating..." : "Generate Roadmap"}
+              </button>
+            </div>
+          </form>{" "}
+        </div>
       </div>
 
       <div className="flex justify-center">
