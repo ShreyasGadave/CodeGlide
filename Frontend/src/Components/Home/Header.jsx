@@ -15,6 +15,7 @@ const Header = () => {
     { name: "Resume", path: "/resume" },
     { name: "Ai Guide", path: "/chat" },
     { name: "AI Interview", path: "/ainterview" },
+    { name: "RoadMap", path: "/roadmap" },
     // { name: "Community", path: "/community" },
   ];
 

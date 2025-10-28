@@ -6,6 +6,7 @@ import connectDB from "./Config/Connection.js";
 import UserRouter from "./Routes/User.js";
 import SheetRouter from "./Routes/Sheet.js";
 import NoteRouter from "./Routes/Note.js";
+import CreateRoadmap from "./Routes/roadMapRoute.js";
 import ProfileRouter from "./Routes/Profile.js";
 import AIInterview from "./Routes/interviewRoutes.js";
 import AnalyzeResume from "./Routes/ResumeAnalyze.js";
@@ -40,6 +41,7 @@ app.post("/api/aiagent", authenticateToken, generateAIResponse);
 app.use("/api/aiinterview", AIInterview);
 app.use("/api/resume", AnalyzeResume);
 app.get("/api/jobs", FetchInternships);
+app.use("/api/create", CreateRoadmap);
 
 // checkAndSendEmails()
 app.listen(PORT, () => {
