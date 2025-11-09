@@ -29,7 +29,7 @@ const RoadmapForm = () => {
     <>
       <div className="max-w-6xl  mt-10 mx-auto p-6  rounded-lg">
         <h2 className="font-bold text-3xl text-gray-600">
-          AI Interview Dashboard
+          AI Roadmap Dashboard
         </h2>
         <p className="text-gray-500 text-base py-1 pb-3">
           Prepare smarter with personalized AI insights — track progress,

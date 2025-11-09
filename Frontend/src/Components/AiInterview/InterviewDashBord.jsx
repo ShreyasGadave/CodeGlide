@@ -21,6 +21,8 @@ export default function InterviewDashBord() {
         const response = await axios.get(
           `${import.meta.env.VITE_API_URL}/api/aiinterview/getUserInterviews`
         );
+        console.log(response);
+        
         dispatch(setUserInterviews(response.data));
       } catch (error) {
         console.log(error);
