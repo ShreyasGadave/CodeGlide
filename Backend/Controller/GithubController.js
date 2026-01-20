@@ -93,9 +93,11 @@ const getGitHubUserData = async (req, res) => {
     // 🔍 Language usage stats
     const languages = {};
     let totalSize = 0;
+    console.log("this is repo ",repos);
+    
     repos.data.forEach((repo) => {
       if (repo.language) {
-        const size = repo.size;
+        const size = repo.size;        
         totalSize += size;
         languages[repo.language] = (languages[repo.language] || 0) + size;
       }
