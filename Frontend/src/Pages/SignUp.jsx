@@ -3,7 +3,12 @@ import { Link, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
 import { signupUser } from "../Features/Auth/AuthSlice";
-import { Card, CardContent, CardHeader, CardTitle } from "../Components/ui/card";
+import {
+  Card,
+  CardContent,
+  CardHeader,
+  CardTitle,
+} from "../Components/ui/card";
 import { Label } from "../Components/ui/label";
 import { Input } from "../Components/ui/input";
 import { Button } from "../Components/ui/button";
@@ -12,7 +17,7 @@ const SignUp = () => {
   const dispatch = useDispatch();
   const { user, error, loading } = useSelector((state) => state.auth);
   const navigate = useNavigate();
-  
+
   const {
     register,
     handleSubmit,
@@ -47,12 +52,71 @@ const SignUp = () => {
               <Input
                 id="name"
                 type="text"
+                autoComplete="name"
                 {...register("name", { required: "Name is required" })}
                 placeholder="Enter your name"
                 className="mt-1"
               />
               {errors.name && (
-                <p className="text-red-500 text-sm mt-1">{errors.name.message}</p>
+                <p className="text-red-500 text-sm mt-1">
+                  {errors.name.message}
+                </p>
+              )}
+            </div>
+
+            <div>
+              <Label htmlFor="username">Username</Label>
+              <Input
+                id="username"
+                type="text"
+                autoComplete="username"
+                {...register("username", {
+                  required: "Username is required",
+                  minLength: {
+                    value: 3,
+                    message: "Username must be at least 3 characters",
+                  },
+                  maxLength: {
+                    value: 20,
+                    message: "Username must be less than 20 characters",
+                  },
+                  pattern: {
+                    value: /^[a-zA-Z0-9_]+$/,
+                    message:
+                      "Username can only contain letters, numbers, and underscores",
+                  },
+                })}
+                placeholder="Enter username"
+                className="mt-1"
+              />
+              {errors.username && (
+                <p className="text-red-500 text-sm mt-1">
+                  {errors.username.message}
+                </p>
+              )}
+            </div>
+
+            <div>
+              <Label htmlFor="dateOfBirth">Date of Birth</Label>
+              <Input
+                id="dateOfBirth"
+                type="date"
+                autoComplete="bday-day bday-month bday-year"
+                {...register("dateOfBirth", {
+                  required: "Date of birth is required",
+                  validate: (value) => {
+                    const today = new Date();
+                    const dob = new Date(value);
+                    const age = today.getFullYear() - dob.getFullYear();
+                    return age >= 13 || "You must be at least 13 years old";
+                  },
+                })}
+                className="mt-1"
+              />
+              {errors.dateOfBirth && (
+                <p className="text-red-500 text-sm mt-1">
+                  {errors.dateOfBirth.message}
+                </p>
               )}
             </div>
 
@@ -62,6 +126,7 @@ const SignUp = () => {
               <Input
                 id="mobile"
                 type="tel"
+                autoComplete="tel"
                 {...register("mobile", {
                   required: "Mobile number is required",
                   pattern: {
@@ -73,7 +138,9 @@ const SignUp = () => {
                 className="mt-1"
               />
               {errors.mobile && (
-                <p className="text-red-500 text-sm mt-1">{errors.mobile.message}</p>
+                <p className="text-red-500 text-sm mt-1">
+                  {errors.mobile.message}
+                </p>
               )}
             </div>
 
@@ -83,6 +150,7 @@ const SignUp = () => {
               <Input
                 id="email"
                 type="email"
+                autoComplete="email"
                 {...register("email", {
                   required: "Email is required",
                   pattern: {
@@ -94,7 +162,9 @@ const SignUp = () => {
                 className="mt-1"
               />
               {errors.email && (
-                <p className="text-red-500 text-sm mt-1">{errors.email.message}</p>
+                <p className="text-red-500 text-sm mt-1">
+                  {errors.email.message}
+                </p>
               )}
             </div>
 
@@ -104,6 +174,7 @@ const SignUp = () => {
               <Input
                 id="password"
                 type="password"
+                autoComplete="new-password"
                 {...register("password", {
                   required: "Password is required",
                   minLength: {
@@ -127,6 +198,7 @@ const SignUp = () => {
               <Input
                 id="confirmPassword"
                 type="password"
+               autoComplete="new-password"
                 {...register("confirmPassword", {
                   required: "Please confirm your password",
                   validate: (value) =>
@@ -147,6 +219,7 @@ const SignUp = () => {
               <input
                 id="terms"
                 type="checkbox"
+                autoComplete="terms"
                 {...register("terms", {
                   required: "You must accept the terms and conditions",
                 })}
@@ -182,7 +255,7 @@ const SignUp = () => {
             {/* Sign In Link */}
             <div className="text-center text-sm">
               Already have an account?{" "}
-              <Link to="/signin" className="text-blue-600 hover:underline">
+              <Link to="/logi" className="text-blue-600 hover:underline">
                 Sign in here
               </Link>
             </div>

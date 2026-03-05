@@ -5,6 +5,7 @@ import ScrollToTop from '../Components/ScrollToTop'
 // import LiveActivityFeed from '@/Components/Rocket/LiveActivityFeed'
 // import CTASection from '@/Components/Rocket/CTASection'
 function Layout() {
+  
     return (
         <div>
             <ScrollToTop />
@@ -14,7 +15,6 @@ function Layout() {
               {/* <LiveActivityFeed/> */}
               {/* <CTASection/> */}
             <Footer />
-         
         </div>
     )
 }

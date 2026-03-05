@@ -1,6 +1,7 @@
 import express from "express";
 import { authenticateToken } from "../Middlewares/Auth.js";
 import {
+  getSheetsData,
   handleCreateSheet,
   handleFetchAndAddQuestions,
   handleFollowSheet,
@@ -28,10 +29,12 @@ router.post("/follow", authenticateToken, handleFollowSheet);
 router.post("/question/mark-solved", authenticateToken, handleMarkQuestionAsSolved);
 
 // Get all sheets
-router.get("/", authenticateToken, handleGetAllSheets);
+router.get("/data", authenticateToken, handleGetAllSheets);
 
 // Get detailed info about a sheet
-router.post("/details", authenticateToken, handleGetSheetById);
+router.get("/details/:sheetId",authenticateToken, handleGetSheetById);
+
+router.get('/data/:sheetId',getSheetsData)
 
 // Get followed sheets
 router.get("/followed/list", authenticateToken, handleGetFollowedSheets);

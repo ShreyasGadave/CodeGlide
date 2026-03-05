@@ -2,13 +2,27 @@ import { getUser } from "../Services/Auth.js";
 
 const authenticateToken = (req, res, next) => {
   try {
-    const authHeader = req.headers["authorization"];
-    const token = authHeader && authHeader.split(" ")[1];
+    // ✅ Read token from cookie OR Authorization header
+    const cookieToken = req.cookies?.token;
+    const authHeader = req.header("Authorization");
 
-    if (!token) return res.status(401).json({ msg: "Please login" });
+    const headerToken = authHeader?.startsWith("Bearer ")
+      ? authHeader.split(" ")[1]
+      : null;
+
+    const token = cookieToken || headerToken;
+
+    // console.log("TOKEN =>", token);
+
+    if (!token) {
+      return res.status(401).json({ msg: "Please login" });
+    }
 
     const user = getUser(token);
-    if (!user) return res.status(403).json({ msg: "Invalid token" });
+
+    if (!user) {
+      return res.status(403).json({ msg: "Invalid token" });
+    }
 
     req.user = user;
     next();
@@ -17,4 +31,4 @@ const authenticateToken = (req, res, next) => {
   }
 };
 
-export{authenticateToken} ;
+export { authenticateToken };

@@ -1,14 +1,29 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 
+// const checkAuth = createAsyncThunk(
+//   "auth/checkAuth",
+//   async (_, { rejectWithValue }) => {
+//     try {
+//       const res = await axios.get(
+//         `${import.meta.env.VITE_API_URL}/api/user/me`,
+//         { withCredentials: true }
+//       );
+//       return res.data;
+//     } catch (err) {
+//       return rejectWithValue("Not authenticated");
+//     }
+//   }
+// );
+
 // Function to set default token in axios
 const setAuthToken = (token) => {
   if (token) {
     axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
-    localStorage.setItem("token", token);
+    // localStorage.setItem("token", token);
   } else {
     delete axios.defaults.headers.common["Authorization"];
-    localStorage.removeItem("token");
+    // localStorage.removeItem("token");
   }
 };
 
@@ -19,14 +34,17 @@ export const loginUser = createAsyncThunk(
     try {
       const response = await axios.post(
         `${import.meta.env.VITE_API_URL}/api/user/login`,
-        userdata
+        userdata,
+        {
+          withCredentials: true, // ✅ ADD THIS
+        },
       );
       setAuthToken(response.data.token);
       return response.data;
     } catch (error) {
       return rejectWithValue(error.response?.data?.error || "Login failed");
     }
-  }
+  },
 );
 
 // Async thunk to edit user profile
@@ -36,13 +54,13 @@ export const editUser = createAsyncThunk(
     try {
       const response = await axios.put(
         `${import.meta.env.VITE_API_URL}/api/user/edit`,
-        updatedData
+        updatedData,
       );
       return response.data.user;
     } catch (error) {
       return rejectWithValue(error.response?.data?.error || "Update failed");
     }
-  }
+  },
 );
 
 // Async thunk to check authentication
@@ -50,23 +68,15 @@ export const checkAuth = createAsyncThunk(
   "auth/checkAuth",
   async (_, { rejectWithValue }) => {
     try {
-      const token = localStorage.getItem("token");
-
-      if (!token) {
-        return rejectWithValue("No authentication token found");
-      }
-
-      setAuthToken(token);
-
-      const response = await axios.get(
-        `${import.meta.env.VITE_API_URL}/api/user`
+      const res = await axios.get(
+        `${import.meta.env.VITE_API_URL}/api/user/auth`,
+        { withCredentials: true },
       );
-      return response.data;
-    } catch (error) {
-      setAuthToken(null);
-      return rejectWithValue(error.response?.data || "Not authenticated");
+      return res.data;
+    } catch (err) {
+      return rejectWithValue("Not authenticated");
     }
-  }
+  },
 );
 
 // Async thunk for user signup
@@ -76,14 +86,14 @@ export const signupUser = createAsyncThunk(
     try {
       const response = await axios.post(
         `${import.meta.env.VITE_API_URL}/api/user/signup`,
-        userdata
+        userdata,
       );
       setAuthToken(response.data.token);
       return response.data;
     } catch (error) {
       return rejectWithValue(error.response?.data?.message || "Signup failed");
     }
-  }
+  },
 );
 
 // Initial State

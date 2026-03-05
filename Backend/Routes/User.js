@@ -12,5 +12,8 @@ router.post("/signup", handleSignUp);
 router.post("/login", handleLogin);
 router.get("/", authenticateToken, handleGetUser);
 router.put("/edit", authenticateToken, handleEditUser);
+router.get("/auth", authenticateToken, (req, res) => {
+  res.json({ user: req.user });
+});
 
 export default router;
