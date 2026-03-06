@@ -17,9 +17,11 @@ const LeetCodeStats = () => {
     const fetchData = async () => {
       try {
         const response = await axios.get(
-          `${import.meta.env.VITE_API_URL}/api/profile/leetcode?refresh=true`
+          `${import.meta.env.VITE_API_URL}/api/profile/leetcode?refresh=true`,
+           { withCredentials: true },
         );
         const result = response.data;
+        console.log("this is response", response);
 
         setData(result);
 
@@ -30,7 +32,7 @@ const LeetCodeStats = () => {
                 .toISOString()
                 .split("T")[0],
               count,
-            })
+            }),
           );
 
           setHeatmapData(formattedData);

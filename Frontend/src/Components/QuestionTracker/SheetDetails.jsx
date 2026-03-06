@@ -1,12 +1,22 @@
 import { useEffect, useMemo, useState } from "react";
 import { useParams } from "react-router-dom";
-import { PiBookmarkFill } from "react-icons/pi";
+import {
+  PiBookmarkSimpleFill,
+  PiBookmarkSimple,
+  PiArrowSquareOut,
+  PiUsers,
+  PiTrophy,
+  PiTarget,
+  PiLightning,
+} from "react-icons/pi";
 import { Button } from "../ui/button";
+import { Card, CardContent } from "../ui/card";
+import { Badge } from "../ui/badge";
+import { Avatar, AvatarImage, AvatarFallback } from "../ui/avatar";
+import { Separator } from "../ui/separator";
+import { Progress } from "../ui/progress";
 import DropdownTable from "./DropdownTables";
 import axios from "axios";
-import { PieChart, Pie, Cell } from "recharts";
-
-const COLORS = ["#16a34a", "#e5e7eb"];
 
 const SheetDetails = () => {
   const { id: sheetId } = useParams();
@@ -23,16 +33,13 @@ const SheetDetails = () => {
     try {
       const response = await axios.get(
         `${import.meta.env.VITE_API_URL}/api/sheets/details/${sheetId}`,
-        {
-          withCredentials: true,
-        }
+        { withCredentials: true }
       );
 
       const apiData = response.data.data;
 
       setSheetMeta(apiData.sheet);
       setSheetQuestions(apiData.mappings || []);
-
       setIsFollowing(apiData.sheet?.isFollowing || false);
 
       const solvedCount =
@@ -46,9 +53,7 @@ const SheetDetails = () => {
   };
 
   useEffect(() => {
-    if (sheetId) {
-      fetchSheetQuestions();
-    }
+    if (sheetId) fetchSheetQuestions();
   }, [sheetId]);
 
   // ================= GROUP DATA =================
@@ -91,139 +96,213 @@ const SheetDetails = () => {
         { sheetId },
         { withCredentials: true }
       );
-
       setIsFollowing((prev) => !prev);
     } catch (error) {
       console.error("Follow error:", error);
     }
   };
 
-  // ================= CHART =================
-  const chartData = [
-    { name: "Completed", value: completed },
-    { name: "Remaining", value: total - completed },
-  ];
+  // ================= DERIVED =================
+  const percentage = total > 0 ? Math.round((completed / total) * 100) : 0;
+  const remaining = total - completed;
+
+  // SVG donut chart
+  const radius = 54;
+  const circumference = 2 * Math.PI * radius;
+  const strokeDashoffset = circumference - (percentage / 100) * circumference;
 
   return (
-    <div className="mt-5 max-w-7xl mx-auto">
+    <div className="max-w-7xl mx-auto px-4 py-6 space-y-6">
 
       {/* ================= BANNER ================= */}
       {sheetMeta?.banner && (
-        <img
-          src={sheetMeta.banner}
-          alt="sheet banner"
-          className="w-full h-60 object-cover rounded-xl"
-        />
+        <div className="relative overflow-hidden rounded-2xl">
+          <img
+            src={sheetMeta.banner}
+            alt="sheet banner"
+            className="w-full h-48 sm:h-56 md:h-64 object-cover"
+          />
+          <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent" />
+        </div>
       )}
 
-      {/* ================= HEADER ================= */}
-      <header className="w-full flex flex-col lg:flex-row justify-between px-4 py-6 gap-6">
+      {/* ================= MAIN CARD ================= */}
+      <Card className="border-0 shadow-lg overflow-hidden">
+        <CardContent className="p-0">
+          <div className="flex flex-col lg:flex-row">
 
-        {/* LEFT */}
-        <div className="w-full lg:w-3/4 flex flex-col gap-3">
+            {/* ---- LEFT SECTION ---- */}
+            <div className="flex-1 p-6 md:p-8 space-y-5">
 
-          <h2 className="text-3xl md:text-4xl font-bold text-gray-800">
-            {sheetMeta?.name}
-          </h2>
+              {/* Title + Follow */}
+              <div className="flex flex-col sm:flex-row sm:items-start justify-between gap-4">
+                <div className="space-y-1">
+                  <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold tracking-tight text-foreground">
+                    {sheetMeta?.name}
+                  </h1>
+                  <p className="text-muted-foreground text-sm md:text-base whitespace-pre-line leading-relaxed max-w-2xl">
+                    {sheetMeta?.description}
+                  </p>
+                </div>
 
-          <p className="text-gray-500 whitespace-pre-line leading-relaxed">
-            {sheetMeta?.description}
-          </p>
+                <Button
+                  variant={isFollowing ? "default" : "outline"}
+                  size="sm"
+                  className={`shrink-0 gap-2 transition-all duration-200 ${
+                    isFollowing
+                      ? "bg-emerald-600 hover:bg-emerald-700 text-white shadow-md"
+                      : "hover:border-emerald-500 hover:text-emerald-600"
+                  }`}
+                  onClick={handleFollow}
+                >
+                  {isFollowing ? (
+                    <PiBookmarkSimpleFill size={16} />
+                  ) : (
+                    <PiBookmarkSimple size={16} />
+                  )}
+                  {isFollowing ? "Following" : "Follow"}
+                </Button>
+              </div>
 
-          {/* AUTHOR */}
-          <div className="flex items-center gap-3 mt-2">
-            <img
-              src={sheetMeta?.authorDetails?.imageUrl}
-              alt="author"
-              className="w-10 h-10 rounded-full"
-            />
+              <Separator />
 
-            <div>
-              <p className="font-medium">
-                {sheetMeta?.authorDetails?.profileName}
-              </p>
-              <p className="text-sm text-gray-500">
-                {sheetMeta?.authorDetails?.college}
-              </p>
-            </div>
-          </div>
-
-          {/* META */}
-          <div className="flex gap-4 flex-wrap text-sm text-gray-600">
-            <span>👥 {sheetMeta?.followers} followers</span>
-
-            {(sheetMeta?.tag || []).map((tag, i) => (
-              <span
-                key={i}
-                className="bg-gray-100 px-2 py-1 rounded-md"
-              >
-                #{tag}
-              </span>
-            ))}
-          </div>
-
-          {/* LINK */}
-          <a
-            href={sheetMeta?.link}
-            target="_blank"
-            rel="noreferrer"
-            className="text-blue-600 underline text-sm"
-          >
-            Open Original Sheet
-          </a>
-
-          {/* FOLLOW BUTTON */}
-          <Button
-            variant="outline"
-            className={`flex items-center gap-2 w-fit ${
-              isFollowing
-                ? "border-green-500 text-green-600"
-                : ""
-            }`}
-            onClick={handleFollow}
-          >
-            <PiBookmarkFill size={18} />
-            {isFollowing ? "Following" : "Follow"}
-          </Button>
-        </div>
-
-        {/* RIGHT CHART */}
-        <div className="w-full lg:w-1/4 flex justify-center items-center">
-          <div className="relative">
-
-            <PieChart width={160} height={160}>
-              <Pie
-                data={chartData}
-                cx="50%"
-                cy="50%"
-                innerRadius={55}
-                outerRadius={70}
-                dataKey="value"
-                stroke="none"
-              >
-                {chartData.map((entry, index) => (
-                  <Cell
-                    key={index}
-                    fill={COLORS[index % COLORS.length]}
+              {/* Author */}
+              <div className="flex items-center gap-3">
+                <Avatar className="h-11 w-11 ring-2 ring-border">
+                  <AvatarImage
+                    src={sheetMeta?.authorDetails?.imageUrl}
+                    alt={sheetMeta?.authorDetails?.profileName}
                   />
-                ))}
-              </Pie>
-            </PieChart>
+                  <AvatarFallback className="text-xs font-semibold">
+                    {sheetMeta?.authorDetails?.profileName
+                      ?.slice(0, 2)
+                      ?.toUpperCase() || "AU"}
+                  </AvatarFallback>
+                </Avatar>
+                <div>
+                  <p className="font-semibold text-sm text-foreground">
+                    {sheetMeta?.authorDetails?.profileName}
+                  </p>
+                  <p className="text-xs text-muted-foreground">
+                    {sheetMeta?.authorDetails?.college}
+                  </p>
+                </div>
+              </div>
 
-            <div className="absolute top-[50%] left-[50%] -translate-x-1/2 -translate-y-1/2 text-center">
-              <div className="text-2xl font-bold">{completed}</div>
-              <div className="text-gray-400">/</div>
-              <div className="text-xl text-gray-500">{total}</div>
+              {/* Meta Row */}
+              <div className="flex items-center gap-3 flex-wrap">
+                <Badge variant="secondary" className="gap-1.5 px-3 py-1">
+                  <PiUsers size={14} />
+                  {sheetMeta?.followers || 0} followers
+                </Badge>
+
+                {(sheetMeta?.tag || []).map((tag, i) => (
+                  <Badge key={i} variant="outline" className="px-3 py-1">
+                    #{tag}
+                  </Badge>
+                ))}
+              </div>
+
+              {/* Original sheet link */}
+              {sheetMeta?.link && (
+                <a
+                  href={sheetMeta.link}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="inline-flex items-center gap-1.5 text-sm font-medium text-primary hover:underline underline-offset-4 transition-colors"
+                >
+                  <PiArrowSquareOut size={15} />
+                  Open Original Sheet
+                </a>
+              )}
+            </div>
+
+            {/* ---- RIGHT SECTION — Progress ---- */}
+            <div className="lg:w-72 xl:w-80 border-t lg:border-t-0 lg:border-l bg-muted/30 p-6 md:p-8 flex flex-col items-center justify-center gap-5">
+
+              {/* SVG Donut Chart */}
+              <div className="relative w-36 h-36">
+                <svg
+                  className="w-full h-full -rotate-90"
+                  viewBox="0 0 120 120"
+                >
+                  {/* Background ring */}
+                  <circle
+                    cx="60"
+                    cy="60"
+                    r={radius}
+                    fill="none"
+                    stroke="hsl(var(--border))"
+                    strokeWidth="10"
+                  />
+                  {/* Progress ring */}
+                  <circle
+                    cx="60"
+                    cy="60"
+                    r={radius}
+                    fill="none"
+                    stroke="hsl(142, 71%, 45%)"
+                    strokeWidth="10"
+                    strokeLinecap="round"
+                    strokeDasharray={circumference}
+                    strokeDashoffset={strokeDashoffset}
+                    className="transition-all duration-700 ease-out"
+                  />
+                </svg>
+                <div className="absolute inset-0 flex flex-col items-center justify-center">
+                  <span className="text-3xl font-bold text-foreground">
+                    {percentage}%
+                  </span>
+                  <span className="text-xs text-muted-foreground font-medium">
+                    complete
+                  </span>
+                </div>
+              </div>
+
+              {/* Stats Cards */}
+              <div className="w-full grid grid-cols-3 gap-2 text-center">
+                <div className="rounded-lg bg-background border px-2 py-2.5">
+                  <PiTarget className="mx-auto text-muted-foreground mb-1" size={16} />
+                  <p className="text-lg font-bold text-foreground">{total}</p>
+                  <p className="text-[10px] text-muted-foreground font-medium uppercase tracking-wider">
+                    Total
+                  </p>
+                </div>
+                <div className="rounded-lg bg-emerald-50 dark:bg-emerald-950/30 border border-emerald-200 dark:border-emerald-900 px-2 py-2.5">
+                  <PiTrophy className="mx-auto text-emerald-600 mb-1" size={16} />
+                  <p className="text-lg font-bold text-emerald-600">{completed}</p>
+                  <p className="text-[10px] text-emerald-600/80 font-medium uppercase tracking-wider">
+                    Done
+                  </p>
+                </div>
+                <div className="rounded-lg bg-amber-50 dark:bg-amber-950/30 border border-amber-200 dark:border-amber-900 px-2 py-2.5">
+                  <PiLightning className="mx-auto text-amber-600 mb-1" size={16} />
+                  <p className="text-lg font-bold text-amber-600">{remaining}</p>
+                  <p className="text-[10px] text-amber-600/80 font-medium uppercase tracking-wider">
+                    Left
+                  </p>
+                </div>
+              </div>
+
+              {/* Linear progress bar */}
+              <div className="w-full space-y-1.5">
+                <div className="flex justify-between text-xs text-muted-foreground">
+                  <span>Progress</span>
+                  <span>{completed}/{total}</span>
+                </div>
+                <Progress
+                  value={percentage}
+                  className="h-2 [&>div]:bg-emerald-500"
+                />
+              </div>
             </div>
 
           </div>
-        </div>
-      </header>
-
-      <hr />
+        </CardContent>
+      </Card>
 
       {/* ================= QUESTIONS ================= */}
-      <div className="p-4">
+      <div>
         <DropdownTable topics={groupedTopics} sheetId={sheetId} />
       </div>
     </div>
