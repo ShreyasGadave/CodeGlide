@@ -78,7 +78,7 @@ const router = createBrowserRouter(
 
       {/* Profile Tracker with Sub-Routes */}
       <Route path="profile" element={<ProfileTracker />}>
-        <Route index element={<LeetCodeStats />} />
+        <Route index element={<DevStats />} />
         <Route path="leetcode" element={<LeetCodeStats />} />
         <Route path="github" element={<DevStats />} />
         <Route path="codeforces" element={<CodeforcesProfile />} />
