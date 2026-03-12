@@ -1,9 +1,7 @@
-import React, { useEffect } from "react";
 import {
   createBrowserRouter,
   createRoutesFromElements,
   Route,
-  RouterProvider,
 } from "react-router-dom";
 import { Provider, useDispatch } from "react-redux";
 import { store } from "./App/Store";
@@ -64,7 +62,7 @@ const router = createBrowserRouter(
 
       {/* Nested Routes for Question Tracker */}
       <Route path="question-tracker" element={<QuestionTracker />}>
-        <Route index element={<Workspace />} /> {/* Default Page */}
+        <Route index element={<Workspace />} />
         <Route path="workspace" element={<Workspace />} />
         <Route path="explore" element={<Explore />} />
         <Route path="mySheets" element={<MySheets />} />

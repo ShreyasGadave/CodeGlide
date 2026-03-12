@@ -169,4 +169,40 @@ async function handleEditUser(req, res) {
   }
 }
 
-export { handleSignUp, handleLogin, handleGetUser, handleEditUser };
+async function userInfo(req, res) {
+  try {
+    const userId = req.user?.id || req.userId || req.body.userId;
+    console.log('userinfo',userId);
+
+    if (!userId) {
+      return res.status(400).json({
+        success: false,
+        message: "User ID is required",
+      });
+    }
+
+    // ✅ Fetch all user data from UserModel
+    const user = await User.findById(userId).select(); // exclude password
+
+    if (!user) {
+      return res.status(404).json({
+        success: false,
+        message: "User not found",
+      });
+    }
+// console.log( user); 
+
+    return res.status(200).json({
+      success: true,
+      user,
+    });
+  } catch (error) {
+    console.error("userInfo error:", error);
+    return res.status(500).json({
+      success: false,
+      error: "Server error. Please try again later.",
+    });
+  }
+}
+
+export { handleSignUp, handleLogin, handleGetUser, handleEditUser, userInfo };

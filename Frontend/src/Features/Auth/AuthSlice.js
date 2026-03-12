@@ -1,21 +1,6 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 
-// const checkAuth = createAsyncThunk(
-//   "auth/checkAuth",
-//   async (_, { rejectWithValue }) => {
-//     try {
-//       const res = await axios.get(
-//         `${import.meta.env.VITE_API_URL}/api/user/me`,
-//         { withCredentials: true }
-//       );
-//       return res.data;
-//     } catch (err) {
-//       return rejectWithValue("Not authenticated");
-//     }
-//   }
-// );
-
 // Function to set default token in axios
 const setAuthToken = (token) => {
   if (token) {
@@ -40,6 +25,8 @@ export const loginUser = createAsyncThunk(
         },
       );
       setAuthToken(response.data.token);
+      console.log("this is login data:", response.data);
+
       return response.data;
     } catch (error) {
       return rejectWithValue(error.response?.data?.error || "Login failed");
@@ -96,12 +83,79 @@ export const signupUser = createAsyncThunk(
   },
 );
 
+export const getUserinfo = createAsyncThunk(
+  "auth/getUserinfo",
+  async (_, { rejectWithValue }) => {
+    try {
+      const response = await axios.get(
+        `${import.meta.env.VITE_API_URL}/api/user/userinfo`,
+        { withCredentials: true },
+      );
+      console.log("this is userinfo",response.data);  
+
+      return response.data;
+    } catch (error) {
+      return rejectWithValue(error.response?.data?.message || "Signup failed");
+    }
+  },
+);
+
 // Initial State
 const initialState = {
-  user: null,
+  userInfo: {
+    _id: "",
+    name: "",
+    username: "",
+    email: "",
+    mobile: "",
+    dateOfBirth: "",
+
+    profilePic: {
+      public_id: "",
+      url: "",
+    },
+
+    college: "",
+    course: "",
+    branch: "",
+    rollNumber: "",
+
+    address: {
+      city: "",
+      state: "",
+    },
+
+    skills: [],
+    interests: [],
+
+    platforms: {
+      github: "",
+      leetcode: "",
+      geeksforgeeks: "",
+      codeforces: "",
+    },
+
+    career: {
+      resume: {
+        public_id: "",
+        url: "",
+      },
+      lookingFor: "",
+      preferredRole: "",
+    },
+
+    isVerified: false,
+    terms: false,
+    status: "",
+
+    sheets: [],
+
+    createdAt: "",
+    updatedAt: "",
+  },
+
   loading: false,
   error: null,
-  isAuthenticated: false,
 };
 
 // Authentication Slice
@@ -118,6 +172,7 @@ const authSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder
+
       // Handle Edit User
       .addCase(editUser.pending, (state) => {
         state.loading = true;
@@ -131,11 +186,29 @@ const authSlice = createSlice({
         state.loading = false;
         state.error = action.payload;
       })
+
+      // Handle Get User Info
+      .addCase(getUserinfo.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(getUserinfo.fulfilled, (state, action) => {
+        state.loading = false;
+        state.userInfo = action.payload; // maps to your detailed userInfo object
+        state.isAuthenticated = true;
+      })
+      .addCase(getUserinfo.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload;
+      })
+
       // Handle Login
+
       .addCase(loginUser.pending, (state) => {
         state.loading = true;
         state.error = null;
       })
+
       .addCase(loginUser.fulfilled, (state, action) => {
         state.loading = false;
         state.user = action.payload.user;

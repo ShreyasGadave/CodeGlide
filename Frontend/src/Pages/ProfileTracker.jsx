@@ -1,6 +1,6 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate, Outlet } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Button } from "../Components/ui/button";
 import { Card } from "../Components/ui/card";
 import { FaChevronUp, FaExternalLinkAlt } from "react-icons/fa";
@@ -10,6 +10,7 @@ import {
   SiCodeforces,
   SiGeeksforgeeks,
 } from "react-icons/si";
+import { getUserinfo, loginUser } from "@/Features/Auth/AuthSlice";
 
 // Icon mapping
 const platformIcons = {
@@ -23,6 +24,14 @@ const ProfileTracker = () => {
   const [isOpen, setIsOpen] = useState(true);
   const { user } = useSelector((state) => state.auth);
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const { userInfo, loading, isAuthenticated } = useSelector(
+    (state) => state.auth,
+  );
+  // ✅ fetch user info on mount
+  useEffect(() => {
+    dispatch(getUserinfo());
+  }, [dispatch]);
 
   const handlePlatformClick = (platform, username) => {
     if (username?.trim()) {
@@ -53,7 +62,7 @@ const ProfileTracker = () => {
               alt="Profile"
               className="w-20 h-20 rounded-full border-4 border-white"
             />
-            <h2 className="text-lg font-semibold">{user?.name || "User"}</h2>
+            <h2 className="text-lg font-semibold">{user?.username}</h2>
           </Card>
 
           {/* Platform Links */}
@@ -103,7 +112,7 @@ const ProfileTracker = () => {
         <div className="col-span-3 dark:bg-gray-800 rounded-lg">
           <Outlet />
         </div>
-      </div>{" "}
+      </div>
     </div>
   );
 };
